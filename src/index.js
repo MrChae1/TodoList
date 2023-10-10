@@ -1,8 +1,11 @@
 import './style/style.scss';
+import {subComponent} from './print';
+
 function component(){
-    const hOne = document.createElement('h1');
-    hOne.textContent = 'Hello Start Here';
-    return hOne;
+    const mainContainer = document.createElement('main');
+    const subContainer = subComponent();
+    mainContainer.append(subContainer.forHeader(), subContainer.forNav(), subContainer.forAside(), subContainer.forFooter());
+    return mainContainer;
 }
 
 document.body.appendChild(component());
