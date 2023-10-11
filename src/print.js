@@ -1,6 +1,8 @@
 import './style/style.scss';
+import { commandRun } from './command';
 
 export function subComponent(){
+    const com = commandRun();
     const forHeader = () => {
         const headerTag = document.createElement('header');
         headerTag.innerHTML = `
@@ -13,11 +15,13 @@ export function subComponent(){
     const forNav = () => {
         const navTag = document.createElement('nav');
         navTag.innerHTML = `
-            <button>HOME</button>
-            <button>TASKS</button>
-            <button>NOTES</button>
+            <button class="Home-btn">HOME</button>
+            <button class="Task-btn">TASKS</button>
+            <button class="Notes-btn">NOTES</button>
         `;
         
+        com.navClick(navTag);
+
         return navTag;
     }
 
@@ -29,7 +33,15 @@ export function subComponent(){
                     <div>Hello</div>
                     <div>Hi</div>
                 </section>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus-circle</title><path d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" /></svg>
+                <section>
+                    <div>Nice</div>
+                    <div>One</div>
+                </section>
+                <section>
+                    <div>K</div>
+                    <div>poh</div>
+                </section> 
+                <svg class="asideSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus-circle</title><path d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" /></svg>
             </main>
         `;
 
