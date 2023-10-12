@@ -45,38 +45,75 @@ aside{
     @include ContainerTag(flex);
     grid-area: 3/1/4/3;
     position: relative;
+    padding: 0;
     
     main{
         @include ContainerTag(flex);
         border: none;
         section:nth-child(1){
-            @include ContainerTag(grid);
-            grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
-            border: none;
-            gap: .5rem;
-            div{
-                @include ContainerTag(flex);
-            }
+            @include forHandW();
         }
         section:nth-child(2){
-            @extend section;
-            @extend :nth-child(1);
-            display: none;
+            @include forHandW();
+            display: grid;
+            grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+            .tasks-div{
+                @include ContainerTag(block);
+                padding: 0;
+                border-radius: 0;
+                background-color: green;
+                .tasks{
+                    @include forHandW();
+                    margin-left: 2%;
+                    width: 98%;
+                    display: grid;
+                    grid-template-columns: .2fr 5fr 1fr 1.5fr repeat(2, .5fr);
+                    padding: .5rem;
+                    background-color: white;
+                    align-content: center;
+                    gap: .5rem;
+                    text-align: justify;
+                    
+                }
+                input{
+                    @include forHandW();
+                    grid-column: 1/2;
+                }
+                label{
+                    @include forHandW();
+                    grid-column: 2/3;
+                    padding-top: 8px; 
+                }
+                button{
+                    @include ContainerTag(block);
+                    grid-column: 3/4;
+                    font-weight: bold;
+                    background-color: transparent;
+                    cursor: pointer;
+                }
+                p{
+                    @include forHandW();
+                    grid-column: 4/5;
+                    padding-top: 8px;
+                    text-align: center
+                }
+                .edit{
+                    @include forHandW();
+                    grid-column: 5/6;
+                }
+                .delete{
+                    @include forHandW();
+                    grid-column: 6/7;
+                }
 
-            div{
-                @include ContainerTag(flex);
             }
+            
         }
         section:nth-child(3){
-            @extend section;
-            @extend :nth-child(1);
-            display:  none;
-
-            div{
-                @include ContainerTag(flex);
-            }
-        } 
-        svg{
+            @include forHandW();
+        }
+        
+        .asideSVG{
             display: none;
             position: absolute;
             bottom: 10px;
