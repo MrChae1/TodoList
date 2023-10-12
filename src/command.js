@@ -29,17 +29,26 @@ export function commandRun(){
         else if(navBtn.classList.contains('Task-btn')){
             navBtn.classList.add('special-btn');
             allSection[1].style.display = allSection[1].style.display === 'none' ? 'grid' : 'none';
-            console.log(addBtn);
             addBtn.style.display = 'block';
-            
+            addClick(addBtn, navBtn);        
         }
         else if(navBtn.classList.contains('Notes-btn')){
             navBtn.classList.add('special-btn');
             allSection[2].style.display = allSection[2].style.display === 'none' ? 'grid' : 'none';
             addBtn.style.display = 'block';
-            console.log(addBtn);
+            addClick(addBtn, navBtn);
         }
+    }
 
+    const addClick = (add, nBtn) => {
+        add.addEventListener('click', () =>{
+            if((nBtn.classList.contains('Task-btn')) && (nBtn.classList.contains('special-btn'))){
+                
+            }
+            else if((nBtn.classList.contains('Notes-btn')) && (nBtn.classList.contains('special-btn'))){
+                
+            }
+        });
     }
 
     return {navClick}
