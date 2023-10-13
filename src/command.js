@@ -17,37 +17,28 @@ export function commandRun(){
     }
 
     const navVerify = (navBtn, allbtn) =>{
-        const addBtn = document.querySelector('.asideSVG');
         const allSection = Array.from(document.querySelectorAll('section'));
         allSection.forEach(key => key.style.display = 'none');
         allbtn.forEach(key => key.classList.remove('special-btn'));
         if(navBtn.classList.contains('Home-btn')){
             navBtn.classList.add('special-btn');
-            allSection[0].style.display = allSection[0].style.display === 'none' ? 'grid' : 'none';
-            addBtn.style.display = 'none';
+            allSection[0].style.display = allSection[0].style.display === 'none' ? 'grid' : 'none';        
         }
         else if(navBtn.classList.contains('Task-btn')){
             navBtn.classList.add('special-btn');
-            allSection[1].style.display = allSection[1].style.display === 'none' ? 'grid' : 'none';
-            addBtn.style.display = 'block';
-            addClick(addBtn, navBtn);        
+            allSection[1].style.display = allSection[1].style.display === 'none' ? 'grid' : 'none';             
         }
         else if(navBtn.classList.contains('Notes-btn')){
             navBtn.classList.add('special-btn');
-            allSection[2].style.display = allSection[2].style.display === 'none' ? 'grid' : 'none';
-            addBtn.style.display = 'block';
-            addClick(addBtn, navBtn);
+            allSection[2].style.display = allSection[2].style.display === 'none' ? 'grid' : 'none';           
         }
+
     }
 
-    const addClick = (add, nBtn) => {
+    const addClick = () => {
+        const addBtn = document.querySelector('.asideSVG');
         add.addEventListener('click', () =>{
-            if((nBtn.classList.contains('Task-btn')) && (nBtn.classList.contains('special-btn'))){
-                
-            }
-            else if((nBtn.classList.contains('Notes-btn')) && (nBtn.classList.contains('special-btn'))){
-                
-            }
+            
         });
     }
 

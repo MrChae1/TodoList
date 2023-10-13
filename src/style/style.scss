@@ -1,4 +1,5 @@
 @import './variables';
+@import './modals';
 
 *{
     box-sizing: border-box;
@@ -16,7 +17,7 @@ main{
     @include ContainerTag(grid);
     grid-template: .5fr .5fr 5fr .5fr / 2fr 5fr;
     border: none;
-    gap: .5rem;
+    position: relative;
 }
 header{
     @include ContainerTag(flex);
@@ -31,14 +32,13 @@ nav{
     @include ContainerTag(flex);
     grid-area: 2/1/3/3;
     justify-content: space-evenly;
-    gap: 1rem;
     button{
         @include ContainerTag(inline);
-        padding: .5rem 2rem;
         font-weight: bold;
         border: none;
         background-color: transparent;
         cursor: pointer;
+        border-radius: 5px
     }
 }
 aside{
@@ -60,18 +60,15 @@ aside{
             .tasks-div{
                 @include ContainerTag(block);
                 padding: 0;
-                border-radius: 0;
                 background-color: green;
                 .tasks{
-                    @include forHandW();
+                    @include ContainerTag(grid);
                     margin-left: 2%;
                     width: 98%;
-                    display: grid;
                     grid-template-columns: .2fr 5fr 1fr 1.5fr repeat(2, .5fr);
-                    padding: .5rem;
                     background-color: white;
                     align-content: center;
-                    gap: .5rem;
+                    border: none;
                     text-align: justify;
                     
                 }
@@ -114,7 +111,7 @@ aside{
         }
         
         .asideSVG{
-            display: none;
+            display: block;
             position: absolute;
             bottom: 10px;
             right: 10px;
@@ -133,3 +130,4 @@ footer{
     grid-area:4/1/5/3;
     justify-content: center;
 }
+
