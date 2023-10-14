@@ -21,7 +21,7 @@ main{
 }
 header{
     @include ContainerTag(flex);
-    justify-content: center;   
+    align-items: center;  
     grid-area: 1/1/2/3;
     svg{
         height: 34px;
@@ -130,4 +130,3 @@ footer{
     grid-area:4/1/5/3;
     justify-content: center;
 }
-

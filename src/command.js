@@ -32,15 +32,14 @@ export function commandRun(){
             navBtn.classList.add('special-btn');
             allSection[2].style.display = allSection[2].style.display === 'none' ? 'grid' : 'none';           
         }
+        
 
     }
 
-    const addClick = () => {
-        const addBtn = document.querySelector('.asideSVG');
+    const addClick = (add) => {
         add.addEventListener('click', () =>{
-            
         });
     }
 
-    return {navClick}
+    return {navClick, addClick}
 } 

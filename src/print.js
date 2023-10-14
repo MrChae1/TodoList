@@ -51,6 +51,8 @@ export function subComponent(){
                 
             </main>
         `;
+        const addBtn = asideTag.querySelector('.asideSVG');
+        com.addClick(addBtn);
 
         return asideTag;
     }
@@ -62,57 +64,56 @@ export function subComponent(){
         `;
         return footerTag;
     }
-    const forModals = () =>{
-        const sectionModals = document.createElement('div');
-        sectionModals.classList.add('section-modals');
-        sectionModals.innerHTML = `
-        <div class="modals">
-        <header>
-            <h2>CREATE NEW...</h2>
-            <h4>X</h4>
-        </header>
-        <nav class="nav-modal">
-            <button>TASKS</button>
-            <button>NOTES</button>
-        </nav>
-        <div class="sub-modals">
-            <div class="tasks-modals">
-                <div class="tasks-inputs">
-                    <input type="text" placeholder="TITLE">
-                    <textarea name="tasks-text" id="tasks-text" cols="30" rows="10" placeholder="Tell me something about this tasks?"></textarea>
-                </div>
-                <div class="tasks-dates">
-                    <label for="tasksDates">Due Dates: </label>
-                    <input type="date" id="tasksDates">
-                </div>
-                <div class="tasks-Prioprity">
-                    <h3>Priority:</h3>
-                    <div class="prio-btn">
-                        <button class="low">LOW</button>
-                        <button class="medium">MEDIUM</button>
-                        <button class="high">HIGH</button>
-                    </div>     
-                </div>
-                <div class="tasks-btn">
-                    <button class="tasks-add">ADD TASKS</button>
-                </div> 
-            </div>
-            <div class="notes-modals">
-                <div class="notes-inputs">
-                    <input type="text" placeholder="TITLE">
-                    <textarea name="notes-text" id="tasks-text" cols="30" rows="10" placeholder="Tell me something about this notes?"></textarea>
-                </div>
-                <div class="notes-btn">
-                    <button class="notes-add">ADD NOTES</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    `;
 
-        return sectionModals;
+    const forModals = () => {
+        const modalTag = document.createElement('div');
+        modalTag.classList.add('section-modals');
+        modalTag.innerHTML = `
+            <div class="modals">
+                <header>
+                    <h2>CREATE NEW...</h2>
+                    <h4>X</h4>
+                </header>
+                <nav class="nav-modal">
+                    <button>TASKS</button>
+                    <button>NOTES</button>
+                </nav>
+                <div class="sub-modals">
+                    <div class="tasks-modals">
+                        <div class="tasks-inputs">
+                            <input type="text" placeholder="TITLE">
+                            <textarea name="tasks-text" id="tasks-text" cols="30" rows="10" placeholder="Tell me something about this tasks?"></textarea>
+                        </div>
+                        <div class="tasks-dates">
+                            <label for="tasksDates">Due Dates: </label>
+                            <input type="date" id="tasksDates">
+                        </div>
+                        <div class="tasks-Prioprity">
+                            <h3>Priority:</h3>
+                            <div class="prio-btn">
+                                <button class="low">LOW</button>
+                                <button class="medium">MEDIUM</button>
+                                <button class="high">HIGH</button>
+                            </div>     
+                        </div>
+                        <div class="tasks-btn">
+                            <button class="tasks-add">ADD TASKS</button>
+                        </div> 
+                    </div>
+                    <div class="notes-modals">
+                        <div class="notes-inputs">
+                            <input type="text" placeholder="TITLE">
+                            <textarea name="notes-text" id="tasks-text" cols="30" rows="10" placeholder="Tell me something about this notes?"></textarea>
+                        </div>
+                        <div class="notes-btn">
+                            <button class="notes-add">ADD NOTES</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        return modalTag;
     }
-
+   
     return {forHeader, forNav, forAside, forFooter, forModals}
 }
-
