@@ -10,10 +10,21 @@
     height: 100%;
     width: 100%;
 }
-.special-btn{
-    background-color: red;
-    color: black;
-    transition: ease-in-out 1s;
+@mixin forHoverOne(){
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0px;
+    left: 0;
+    background-color: black;
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-in-out; 
+}
+@mixin forHovertwo(){
+    transform: scaleX(1);
+    transform-origin: bottom left; 
 }
 @mixin prioButton($border, $color){
     border: $border;
@@ -31,4 +42,21 @@
     resize: none;
     font-weight: bold;
     padding: .5rem;
+}
+.special-btn{
+    background-color: red;
+    color: black;
+    transition: ease-in-out 1s;
+    &:after{
+        @include forHoverOne();
+        height: 0px;
+        bottom: 0px;
+    }
+    &:hover:after{
+        @include forHovertwo();
+    }
+}
+.selected-prio{
+    background-color: white;
+    color: black;
 }
