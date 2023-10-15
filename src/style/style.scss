@@ -21,6 +21,7 @@ main{
 }
 header{
     @include ContainerTag(flex);
+    background-color: aquamarine;
     align-items: center;  
     grid-area: 1/1/2/3;
     svg{
@@ -38,8 +39,16 @@ nav{
         border: none;
         background-color: transparent;
         cursor: pointer;
-        border-radius: 5px
+        border-radius: 5px;
+        position: relative;
+        &:after{
+            @include forHoverOne();
+        }
+        &:hover:after{
+            @include forHovertwo();
+        }
     }
+
 }
 aside{
     @include ContainerTag(flex);
