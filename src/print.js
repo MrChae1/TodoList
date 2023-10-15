@@ -1,8 +1,7 @@
 import './style/style.scss';
-import { commandRun } from './command';
+
 
 export function subComponent(){
-    const com = commandRun();
     const forHeader = () => {
         const headerTag = document.createElement('header');
         headerTag.innerHTML = `
@@ -18,9 +17,7 @@ export function subComponent(){
             <button class="Home-btn special-btn">HOME</button>
             <button class="Task-btn">TASKS</button>
             <button class="Notes-btn">NOTES</button>
-        `;
-        
-        com.navClick(navTag);
+        `;  
 
         return navTag;
     }
@@ -51,8 +48,6 @@ export function subComponent(){
                 
             </main>
         `;
-        const addBtn = asideTag.querySelector('.asideSVG');
-        com.addClick(addBtn);
 
         return asideTag;
     }
@@ -75,8 +70,8 @@ export function subComponent(){
                     <h4>X</h4>
                 </header>
                 <nav class="nav-modal">
-                    <button>TASKS</button>
-                    <button>NOTES</button>
+                    <button class="C-tasks special-btn">TASKS</button>
+                    <button class="C-notes">NOTES</button>
                 </nav>
                 <div class="sub-modals">
                     <div class="tasks-modals">
@@ -95,9 +90,6 @@ export function subComponent(){
                                 <button class="medium">MEDIUM</button>
                                 <button class="high">HIGH</button>
                             </div>     
-                        </div>
-                        <div class="tasks-btn">
-                            <button class="tasks-add">ADD TASKS</button>
                         </div> 
                     </div>
                     <div class="notes-modals">
@@ -105,9 +97,9 @@ export function subComponent(){
                             <input type="text" placeholder="TITLE">
                             <textarea name="notes-text" id="tasks-text" cols="30" rows="10" placeholder="Tell me something about this notes?"></textarea>
                         </div>
-                        <div class="notes-btn">
-                            <button class="notes-add">ADD NOTES</button>
-                        </div>
+                    </div>
+                    <div class="modals-btn">
+                        <button class="modals-add">ADD Tasks</button>
                     </div>
                 </div>
             </div>
