@@ -1,6 +1,6 @@
 import './style/style.scss';
 
-export function command(){
+export function command(mainCon){
     function commandRun(){
         const navClick = (event, nav) =>{
             const btn = Array.from(nav.querySelectorAll('button'));
@@ -19,22 +19,18 @@ export function command(){
             allSection.forEach(key => key.style.display = 'none');
             allbtn.forEach((key) => {
                 key.classList.remove('special-btn');
-                key.disabled = false;
               });
             if(navBtn.classList.contains('Home-btn')){
                 navBtn.classList.add('special-btn');
-                navBtn.disabled = true;
                 allSection[0].style.display = allSection[0].style.display === 'none' ? 'grid' : 'none';        
             }
             else if(navBtn.classList.contains('Task-btn')){
                 navBtn.classList.add('special-btn');
                 allSection[1].style.display = allSection[1].style.display === 'none' ? 'grid' : 'none'; 
-                navBtn.disabled = true;            
             }
             else if(navBtn.classList.contains('Notes-btn')){
                 navBtn.classList.add('special-btn');
-                allSection[2].style.display = allSection[2].style.display === 'none' ? 'grid' : 'none';
-                navBtn.disabled = true;           
+                allSection[2].style.display = allSection[2].style.display === 'none' ? 'grid' : 'none';         
             }
         }
 
@@ -49,8 +45,7 @@ export function command(){
             });
         }
 
-        const modalsNav = (e, mNav, modalsArray) => {
-            const mnBtn = Array.from(mNav.querySelectorAll('button'));  
+        const modalsNav = (e, mnBtn, modalsArray) => {  
             if(e.target.className === 'C-tasks'){
                 modalNavChange(mnBtn,mnBtn[0], modalsArray);
             }
@@ -70,46 +65,40 @@ export function command(){
                 modalsArray[1].style.display = 'flex';
             }
         }
-        const getData = (navBtn, modalsArray) => {
-            const tasksinput = modalsArray[0].querySelectorAll('input');
-            const taskstext = modalsArray[0].querySelector('#tasks-text');
-            const btnPrio = modalsArray[0].querySelector('.prio-btn');
-            const selectedBtn = Array.from(btnPrio.querySelectorAll('button'));
-            btnPrio.addEventListener('click', function(event){
-                selectedBtn.forEach(key => key.classList.remove('selected-prio'));
-                if(event.target.className === 'low'){
-                    selectedBtn[0].classList.add('selected-prio');
-                }
-                else if(event.target.className === 'medium'){
-                    selectedBtn[1].classList.add('selected-prio');
-                }
-                else if(event.target.className === 'high'){
-                    selectedBtn[2].classList.add('selected-prio');
-                }
 
-            });
+        const verifyModals = (mNav, mArray) => {
+            const TasksInputs = Array.from(mArray[0].querySelectorAll('*'));
+            const NotesInputs = Array.from(mArray[1].querySelectorAll('*'));
+            const forTasksValue = [TasksInputs[1], TasksInputs[2], TasksInputs[5]];
+            const AllTasksValue = forTasksValue.map(key => key.value);
+            const allHaveValue = AllTasksValue.every(value => value !== '' && value !== null);
+            
+            if(mNav[0].classList.contains('C-tasks') && mNav[0].classList.contains('special-btn')){
+                allHaveValue ? console.log('noice') : console.log('nice'); 
+                    
+            }
+            if (mNav[1].classList.contains('C-notes') && mNav[1].classList.contains('special-btn')) {
+                console.log(TasksInputs);
+            }
+            
+            
         }
 
-        const addData = (navBtn) => {
-            if(navBtn[0].classList.contains('special-btn')){
-                console.log(tasksinput);
-            }
-            else if(navBtn[1].classList.contains('special-btn')){
-                console.log('nice');
-            }
-
+        const priobtn = () => {
+            // Next Adding prio classin selected btn
+            return selectedbtn
         }
 
-        return {navClick, displayModals, modalsNav, getData}
 
+        return{navClick, displayModals, modalsNav, verifyModals}
     }
 
-
-    function commandClick(mainCon){
+    function commandClick(){
         const runCom = commandRun()
         const modalsTag = mainCon.querySelector('.section-modals');
         const navTag = mainCon.querySelector('nav');
         const modalNav = modalsTag.querySelector('nav');
+        const mnBtn = Array.from(modalNav.querySelectorAll('button'));
         const tasksModals = modalsTag.querySelector('.tasks-modals');
         const notesModals = modalsTag.querySelector('.notes-modals');
         const modalsArray = [tasksModals, notesModals];
@@ -128,45 +117,24 @@ export function command(){
 
         function modalNavClicked(){
             modalNav.addEventListener('click', function(event) {
-                runCom.modalsNav(event, modalNav, modalsArray);
+                runCom.modalsNav(event, mnBtn, modalsArray);
                 
             });            
         }
 
-        function addClicked(){
-            const navBtn = Array.from(modalNav.querySelectorAll('button'));
-            const Addbtn = modalsTag.querySelector('.modals-add');
-            Addbtn.addEventListener('click', () =>{
-                runCom.getData(navBtn, modalsArray);
-            })
+        function addData(){
+            const addBtn = modalsTag.querySelector('.modals-add');
+            addBtn.addEventListener('click', () => {
+                runCom.verifyModals(mnBtn, modalsArray);
+                
+            });
         }
-        
-        addClicked();
-        modalNavClicked();
-        plusFunction();
+
         NavClicked();
-        
+        plusFunction();
+        modalNavClicked();
+        addData()
     }
 
-    return {commandClick}
-    
+    const com = commandClick(); 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
