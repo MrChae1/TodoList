@@ -102,11 +102,10 @@
             padding: .5rem;    
             
             button:nth-child(1){
-                @include prioButton(2px solid yellowgreen, yellowgreen);
+                @include prioButton(2px solid yellowgreen, yellowgreen);  
             }
             button:nth-child(2){
-                @include prioButton(2px solid rgb(137, 137, 87), rgb(137, 137, 87));
-
+                @include prioButton(2px solid rgb(137, 137, 87), rgb(137, 137, 87));    
             }
             button:nth-child(3){
                 @include prioButton(2px solid red, red);

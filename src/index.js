@@ -5,11 +5,10 @@ import { command } from './command';
 
 function component(){
     const subContainer = subComponent();
-    const Com = command();
     const mainContainer = document.createElement('main');
     mainContainer.classList.add('mainCon');
     mainContainer.append(subContainer.forHeader(), subContainer.forNav(), subContainer.forAside(), subContainer.forFooter(), subContainer.forModals());
-    Com.commandClick(mainContainer);
+    command(mainContainer);
     return mainContainer;
 }
 
