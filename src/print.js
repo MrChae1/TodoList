@@ -86,16 +86,16 @@ export function subComponent(){
                         <div class="tasks-Prioprity">
                             <h3>Priority:</h3>
                             <div class="prio-btn">
-                                <button class="low">LOW</button>
-                                <button class="medium">MEDIUM</button>
-                                <button class="high">HIGH</button>
+                                <button class="low" value="low">LOW</button>
+                                <button class="medium" value="medium">MEDIUM</button>
+                                <button class="high" vlaue="high">HIGH</button>
                             </div>     
                         </div> 
                     </div>
                     <div class="notes-modals">
                         <div class="notes-inputs">
                             <input type="text" placeholder="TITLE">
-                            <textarea name="notes-text" id="tasks-text" cols="30" rows="10" placeholder="Tell me something about this notes?"></textarea>
+                            <textarea name="notes-text" id="notes-text" cols="30" rows="10" placeholder="Tell me something about this notes?"></textarea>
                         </div>
                     </div>
                     <div class="modals-btn">
