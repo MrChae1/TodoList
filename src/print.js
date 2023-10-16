@@ -105,7 +105,7 @@ export function subComponent(){
                 <div class="errorPopUp">
                     <header>
                         <h2>Something Missing</h2>
-                        <h4>X</h4>
+                        <h4 class="inerror">X</h4>
                     </header>
                     <div class="errorMessage">
                         <p>Please provide needed data....</p>

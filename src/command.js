@@ -2,6 +2,22 @@ import './style/style.scss';
 
 export function command(mainCon){
     function commandRun(){
+        let notesArray = [];
+        let tasksArray = []; 
+        class addNotes{
+            constructor(title, desc){
+                this.title = title,
+                this.desc = desc
+            }
+        }
+        class addTasks extends addNotes{
+            constructor(title,desc, dates, prio, index){
+                super(title, desc);
+                this.dates = dates;
+                this.prio = prio;
+                this.index = index;
+            }
+        }
         const navClick = (event, nav) =>{
             const btn = Array.from(nav.querySelectorAll('button'));
                 if(event.target.className === 'Home-btn'){
@@ -38,11 +54,7 @@ export function command(mainCon){
             mainModals.style.display = 'flex';
             const headerTag = mainModals.querySelector('header');
             const exitBtn = headerTag.querySelector('h4');
-            exitBtn.addEventListener('click', () => {
-                mainModals.style.display = 'none';
-                modalsArr[0].style.display = 'grid';
-                modalsArr[1].style.display = 'none';
-            });
+            removeModals(exitBtn, mainModals, modalsArr[0],modalsArr[1]);
         }
 
         const modalsNav = (e, mnBtn, modalsArray) => {  
@@ -84,26 +96,45 @@ export function command(mainCon){
         const verifyModals = (mNav, mArray, mainMod) => {
             const TasksInputs = Array.from(mArray[0].querySelectorAll('*'));
             const NotesInputs = Array.from(mArray[1].querySelectorAll('*'));
-            const forTasksValue = [TasksInputs[1], TasksInputs[2], TasksInputs[5]];
+            const selected = TasksInputs[8].querySelector('.selected-prio');
+            const indexNo = tasksArray.length + 1;
+            const forTasksValue = [TasksInputs[1], TasksInputs[2], TasksInputs[5], selected];
             const AllTasksValue = forTasksValue.map(key => key.value);
+            const newTasks = new addTasks(...AllTasksValue, indexNo);
             const allHaveValue = AllTasksValue.every(value => value !== '' && value !== null);
+            tasksArray.push(newTasks);
+            
             if(mNav[0].classList.contains('C-tasks') && mNav[0].classList.contains('special-btn')){
-                allHaveValue ? console.log('noice') : addingError(mainMod); 
-                    
+                allHaveValue ?  addtoSection(tasksArray): addingError(mainMod); 
+                
             }
             else if (mNav[1].classList.contains('C-notes') && mNav[1].classList.contains('special-btn')) {
-                // verifyValue();
+                
             }   
+        }
+
+        const addtoSection = (newApp) => {
+            
         }
 
         const addingError = (main) => {
             const errorModal = main.querySelector('.errorPopUp');
             const errorexit = errorModal.querySelector('h4');
             errorModal.style.display = 'block';
-            errorexit.addEventListener('click', () =>{
-                errorModal.style.display ='none';
-            });
+            removeModals(errorexit, errorModal, null, null);
+        }
 
+        const removeModals = (X, y, z, q) => {
+            X.addEventListener('click',() =>{
+                if(X.classList.contains('inerror')){
+                    y.style.display ='none';
+                }
+                else{
+                    y.style.display = 'none';
+                    z.style.display = 'grid';
+                    q.style.display = 'none';
+                }
+            });
         }
 
         
