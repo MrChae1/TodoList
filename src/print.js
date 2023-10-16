@@ -86,7 +86,7 @@ export function subComponent(){
                         <div class="tasks-Prioprity">
                             <h3>Priority:</h3>
                             <div class="prio-btn">
-                                <button class="low" value="low">LOW</button>
+                                <button class="low selected-prio" value="low">LOW</button>
                                 <button class="medium" value="medium">MEDIUM</button>
                                 <button class="high" vlaue="high">HIGH</button>
                             </div>     
@@ -101,6 +101,15 @@ export function subComponent(){
                     <div class="modals-btn">
                         <button class="modals-add">ADD Tasks</button>
                     </div>
+                </div>
+                <div class="errorPopUp">
+                    <header>
+                        <h2>Something Missing</h2>
+                        <h4>X</h4>
+                    </header>
+                    <div class="errorMessage">
+                        <p>Please provide needed data....</p>
+                    </div> 
                 </div>
             </div>
         `;
