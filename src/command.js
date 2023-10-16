@@ -66,31 +66,50 @@ export function command(mainCon){
             }
         }
 
-        const verifyModals = (mNav, mArray) => {
+        const priobtn = (prioBtn) => {
+            const prio = Array.from(prioBtn.querySelectorAll('button'));
+            prioBtn.addEventListener('click', function(e){
+                prio.forEach(key => key.classList.remove('selected-prio'));
+                if(e.target.className === 'low'){
+                    prio[0].classList.add('selected-prio');
+                }
+                else if(e.target.className === 'medium'){
+                    prio[1].classList.add('selected-prio');
+                }
+                else if(e.target.className === 'high'){
+                    prio[2].classList.add('selected-prio');
+                }
+            });
+        }
+        const verifyModals = (mNav, mArray, mainMod) => {
             const TasksInputs = Array.from(mArray[0].querySelectorAll('*'));
             const NotesInputs = Array.from(mArray[1].querySelectorAll('*'));
             const forTasksValue = [TasksInputs[1], TasksInputs[2], TasksInputs[5]];
             const AllTasksValue = forTasksValue.map(key => key.value);
             const allHaveValue = AllTasksValue.every(value => value !== '' && value !== null);
-            
             if(mNav[0].classList.contains('C-tasks') && mNav[0].classList.contains('special-btn')){
-                allHaveValue ? console.log('noice') : console.log('nice'); 
+                allHaveValue ? console.log('noice') : addingError(mainMod); 
                     
             }
-            if (mNav[1].classList.contains('C-notes') && mNav[1].classList.contains('special-btn')) {
-                console.log(TasksInputs);
-            }
-            
-            
+            else if (mNav[1].classList.contains('C-notes') && mNav[1].classList.contains('special-btn')) {
+                // verifyValue();
+            }   
         }
 
-        const priobtn = () => {
-            // Next Adding prio classin selected btn
-            return selectedbtn
+        const addingError = (main) => {
+            const errorModal = main.querySelector('.errorPopUp');
+            const errorexit = errorModal.querySelector('h4');
+            errorModal.style.display = 'block';
+            errorexit.addEventListener('click', () =>{
+                errorModal.style.display ='none';
+            });
+
         }
 
+        
 
-        return{navClick, displayModals, modalsNav, verifyModals}
+
+        return{navClick, displayModals, modalsNav, verifyModals, priobtn}
     }
 
     function commandClick(){
@@ -122,10 +141,15 @@ export function command(mainCon){
             });            
         }
 
+        function getData(){
+           const prioCon = tasksModals.querySelector('.prio-btn');
+           runCom.priobtn(prioCon);
+        }
+
         function addData(){
             const addBtn = modalsTag.querySelector('.modals-add');
             addBtn.addEventListener('click', () => {
-                runCom.verifyModals(mnBtn, modalsArray);
+                runCom.verifyModals(mnBtn, modalsArray, modalsTag);
                 
             });
         }
@@ -133,7 +157,8 @@ export function command(mainCon){
         NavClicked();
         plusFunction();
         modalNavClicked();
-        addData()
+        getData();
+        addData();
     }
 
     const com = commandClick(); 
