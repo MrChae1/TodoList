@@ -55,6 +55,7 @@ export function command(mainCon){
             mainModals.style.display = 'flex';
             const headerTag = mainModals.querySelector('header');
             const exitBtn = headerTag.querySelector('h4');
+            exitBtn.classList.add('modal-Exit');
             removeModals(exitBtn, mainModals, modalsArr[0],modalsArr[1]);
         }
 
@@ -147,19 +148,20 @@ export function command(mainCon){
             if(wArr === 'arrTasks'){
                 for(const inTasks of newApp){
                     const mainDiv = document.createElement('div');
-                    mainDiv.classList.add('tasks-div')
+                    mainDiv.classList.add('tasks-div');
+                    mainDiv.setAttribute("data-index", inTasks.index);
                     const subDiv = document.createElement('div');
                     subDiv.classList.add('tasks');
                     changePrio(inTasks.prio, mainDiv);
                     subDiv.innerHTML = `
-                        <input type="checkbox" name="myCheckbox" id="myCheckbox" value="checkboxValue" data-index="${inTasks.index}">
+                        <input type="checkbox" name="myCheckbox" id="myCheckbox" value="checkboxValue" >
                         <label for="myCheckbox">${inTasks.title}</label>
                         <button>Details</button>
                         <p>${inTasks.dates}</p>
                         <svg class="edit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>playlist-edit</title><path d="M3 6V8H14V6H3M3 10V12H14V10H3M20 10.1C19.9 10.1 19.7 10.2 19.6 10.3L18.6 11.3L20.7 13.4L21.7 12.4C21.9 12.2 21.9 11.8 21.7 11.6L20.4 10.3C20.3 10.2 20.2 10.1 20 10.1M18.1 11.9L12 17.9V20H14.1L20.2 13.9L18.1 11.9M3 14V16H10V14H3Z" /></svg>
                         <svg class="delete" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>trash-can</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" /></svg>
                     `;
-                    // delAndEdit(subDiv);
+                    allSubtn(subDiv, mainDiv, inTasks, secondSec);
                     mainDiv.append(subDiv);
                     secondSec.append(mainDiv);
                     
@@ -198,10 +200,45 @@ export function command(mainCon){
             }
         }
 
-        const DelEditDetail = (SDiv) => {
-            const sDivbtn = Array.from(SDiv.querySelectorAll('svg'));
-            // for later 
+        const allSubtn = (SDiv, main, tasksVal, taskSec) => {
+            const sDivbtn = Array.from(SDiv.querySelectorAll('*'));
+            forCheckbox(sDivbtn[0], sDivbtn);
+            forDetails(sDivbtn[2], sDivbtn, tasksVal, taskSec);
+            // forEdits(sDivbtn[4],sDivbtn, tasksVal); //Work with this tomorrow this is for edit svg;
+            // forDelete(sDivbtn[7], sDivbtn, tasksVal); //Work with this tomorrow thisis for delete;
+
         }
+
+        const forCheckbox = (checkbox, suBtn) => {
+            checkbox.addEventListener('change', function(event) {
+                if(event.target.checked){
+                    suBtn[1].style.cssText = 'text-decoration-line: line-through; text-decoration-thickness: 3px; text-decoration-style: solid'; //This is label
+                }
+                else{
+                    suBtn[1].style.textDecoration = 'none'; //This is label
+                } 
+            });
+        }
+
+        const forDetails = (detailsBtn, suBtn, tasksVal, taskSec) => {
+            detailsBtn.addEventListener('click', () =>{
+                const DetailsModal = document.createElement('div');
+                DetailsModal.classList.add('Details-modal');
+                DetailsModal.innerHTML = `
+                    <div class="sub-details">
+                        <h4 class="details-exit">X</h4>
+                        <p>Title: ${tasksVal.title}</p>
+                        <p>Description: ${tasksVal.desc}</p>
+                        <p>DueDate: ${tasksVal.dates}</p>
+                        <p>Priority: ${tasksVal.prio}</p>
+                    <div>
+                `;
+                const detailExit = DetailsModal.querySelector('h4');
+                removeModals(detailExit,DetailsModal, null,null);
+                document.body.append(DetailsModal);
+            });
+        }
+        
         
 
         const addingError = (main) => {
@@ -216,11 +253,15 @@ export function command(mainCon){
                 if(X.classList.contains('inerror')){
                     y.style.display ='none';
                 }
-                else{
+                else if(X.classList.contains('modal-Exit')){
                     y.style.display = 'none';
                     z.style.display = 'grid';
                     q.style.display = 'none';
                 }
+                else if(X.classList.contains('details-exit')){
+                    y.remove();
+                }
+
             });
         }
 
