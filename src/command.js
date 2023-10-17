@@ -5,9 +5,10 @@ export function command(mainCon){
         let notesArray = [];
         let tasksArray = []; 
         class addNotes{
-            constructor(title, desc){
+            constructor(title, desc, index){
                 this.title = title,
                 this.desc = desc
+                this.index = index
             }
         }
         class addTasks extends addNotes{
@@ -93,28 +94,29 @@ export function command(mainCon){
                 }
             });
         }
-        const verifyModals = (mNav, mArray, mainMod, secTwo) => {
-            secTwo.textContent = ``;
+        const verifyModals = (mNav, mArray, mainMod, secTwo, secThree) => {
             const whatArray = ['arrTasks', 'arrNotes']; 
             const TasksInputs = Array.from(mArray[0].querySelectorAll('*'));
             const NotesInputs = Array.from(mArray[1].querySelectorAll('*'));
             const selected = TasksInputs[8].querySelector('.selected-prio');
             const indexTas = tasksArray.length + 1;
             const indexNo = notesArray.length + 1;
-            const forTasksValue = [TasksInputs[1], TasksInputs[2], TasksInputs[5], selected];
+            const forTasksValue = [TasksInputs[1], TasksInputs[2], TasksInputs[5]];
+            const forNotesValue = [NotesInputs[1], NotesInputs[2]];
+
             if(mNav[0].classList.contains('C-tasks') && mNav[0].classList.contains('special-btn')){
-                validateValue(forTasksValue, secTwo, mainMod, whatArray[0], indexTas);
+                validateValue(forTasksValue, secTwo, mainMod, whatArray[0], indexTas, selected);
             }
             else if (mNav[1].classList.contains('C-notes') && mNav[1].classList.contains('special-btn')) {
-                
+                validateValue(forNotesValue, secThree, mainMod, whatArray[1], indexNo, null);
             }   
         }
 
-        const validateValue = (TNVal, secTwo, mainMod, wArr, index) => {
+        const validateValue = (TNVal, sec, mainMod, wArr, index, selected) => {
             const AllValue = TNVal.map(key => key.value);
             const allHaveValue = AllValue.every(value => value !== '' && value !== null);
             if(allHaveValue){
-                passValue(wArr, secTwo, mainMod, AllValue, index, TNVal);
+                passValue(wArr, sec, mainMod, AllValue, index, TNVal, selected);
             }
             else{
                 addingError(mainMod);
@@ -122,42 +124,65 @@ export function command(mainCon){
             
         }
 
-        const passValue = (wArr, secTwo, mainMod, Val, index, TNVal) => {
-
+        const passValue = (wArr, sec, mainMod, Val, index, TNVal, selected) => {
                 if(wArr === 'arrTasks'){
-                    const newTasks = new addTasks(...Val, index);
+                    sec.textContent = ``;
+                    const newTasks = new addTasks(...Val, selected.value, index);
                     tasksArray.push(newTasks);
-                    addtoSection(tasksArray, secTwo, wArr);
+                    addtoSection(tasksArray, sec, wArr);
+
                 }
                 else if(wArr === 'arrNotes'){
-
+                    sec.textContent = ``;
+                    const newNotes = new addNotes(...Val, index);
+                    notesArray.push(newNotes);
+                    addtoSection(notesArray, sec, wArr);
                 }
                 
                 mainMod.style.display = 'none';
                 TNVal.forEach(key => key.value = '');
         }
 
-        const addtoSection = (newApp, secondSec, mainMod) => {
-            
-            for(const inTasks of newApp){
-                const mainDiv = document.createElement('div');
-                mainDiv.classList.add('tasks-div')
-                const subDiv = document.createElement('div');
-                subDiv.classList.add('tasks');
-                changePrio(inTasks.prio, mainDiv);
-                subDiv.innerHTML = `
-                    <input type="checkbox" name="myCheckbox" id="myCheckbox" value="checkboxValue" data-index="${inTasks.index}">
-                    <label for="myCheckbox">${inTasks.title}</label>
-                    <button>Details</button>
-                    <p>${inTasks.dates}</p>
-                    <svg class="edit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>playlist-edit</title><path d="M3 6V8H14V6H3M3 10V12H14V10H3M20 10.1C19.9 10.1 19.7 10.2 19.6 10.3L18.6 11.3L20.7 13.4L21.7 12.4C21.9 12.2 21.9 11.8 21.7 11.6L20.4 10.3C20.3 10.2 20.2 10.1 20 10.1M18.1 11.9L12 17.9V20H14.1L20.2 13.9L18.1 11.9M3 14V16H10V14H3Z" /></svg>
-                    <svg class="delete" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>trash-can</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" /></svg>
-                `;
-                // delAndEdit(subDiv);
-                mainDiv.append(subDiv);
-                secondSec.append(mainDiv);
-            
+        const addtoSection = (newApp, secondSec, wArr) => {
+            if(wArr === 'arrTasks'){
+                for(const inTasks of newApp){
+                    const mainDiv = document.createElement('div');
+                    mainDiv.classList.add('tasks-div')
+                    const subDiv = document.createElement('div');
+                    subDiv.classList.add('tasks');
+                    changePrio(inTasks.prio, mainDiv);
+                    subDiv.innerHTML = `
+                        <input type="checkbox" name="myCheckbox" id="myCheckbox" value="checkboxValue" data-index="${inTasks.index}">
+                        <label for="myCheckbox">${inTasks.title}</label>
+                        <button>Details</button>
+                        <p>${inTasks.dates}</p>
+                        <svg class="edit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>playlist-edit</title><path d="M3 6V8H14V6H3M3 10V12H14V10H3M20 10.1C19.9 10.1 19.7 10.2 19.6 10.3L18.6 11.3L20.7 13.4L21.7 12.4C21.9 12.2 21.9 11.8 21.7 11.6L20.4 10.3C20.3 10.2 20.2 10.1 20 10.1M18.1 11.9L12 17.9V20H14.1L20.2 13.9L18.1 11.9M3 14V16H10V14H3Z" /></svg>
+                        <svg class="delete" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>trash-can</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" /></svg>
+                    `;
+                    // delAndEdit(subDiv);
+                    mainDiv.append(subDiv);
+                    secondSec.append(mainDiv);
+                    
+                }
             }
+            else if(wArr === 'arrNotes'){
+                for(const inNotes of newApp){
+                    const mainDiv = document.createElement('div');
+                    mainDiv.classList.add('Notes-div');
+                    mainDiv.innerHTML = `
+                        <header>
+                            <h2>${inNotes.title}</h2>
+                            <h4 class="notes-del">X</h4>
+                        </header>
+                        <div class="notes-parag">
+                            <p>${inNotes.desc}</p>
+                        </div>
+                    `;
+                    secondSec.append(mainDiv);
+                }
+                
+            }
+            
             
         }
 
@@ -244,7 +269,7 @@ export function command(mainCon){
         function addData(){
             const addBtn = modalsTag.querySelector('.modals-add');
             addBtn.addEventListener('click', () => {
-                runCom.verifyModals(mnBtn, modalsArray, modalsTag, allSec[1]);
+                runCom.verifyModals(mnBtn, modalsArray, modalsTag, allSec[1], allSec[2]);
                 
             });
         }
