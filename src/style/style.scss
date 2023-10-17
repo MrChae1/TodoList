@@ -89,7 +89,8 @@ aside{
                 label{
                     @include forHandW();
                     grid-column: 2/3;
-                    padding-top: 8px; 
+                    padding-top: 8px;
+                    font-weight: Bold; 
                 }
                 button{
                     @include ContainerTag(block);
@@ -107,12 +108,13 @@ aside{
                 .edit{
                     @include forHandW();
                     grid-column: 5/6;
+                    cursor: pointer;
                 }
                 .delete{
                     @include forHandW();
                     grid-column: 6/7;
+                    cursor: pointer;
                 }
-
             }
             
         }
@@ -173,4 +175,30 @@ footer{
     @include ContainerTag(flex);
     grid-area:4/1/5/3;
     justify-content: center;
+}
+.Details-modal{
+    @extend .section-modals;
+    display: flex;
+    .sub-details{
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 5px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        h4{
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: .2rem .5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            &:hover{
+               color: red;
+               transform: scale(1.1); 
+            }
+        }
+    }
 }
