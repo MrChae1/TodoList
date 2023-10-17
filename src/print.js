@@ -26,31 +26,11 @@ export function subComponent(){
         const asideTag = document.createElement('aside');
         asideTag.innerHTML = `
             <main> 
-                <section>
-                    
+                <section>   
                 </section>
                 <section>
-                    <div class="tasks-div">
-                        <div class="tasks">
-                            <input type="checkbox" name="myCheckbox" id="myCheckbox" value="checkboxValue">
-                            <label for="myCheckbox">Checkbox Label</label>
-                            <button>Details</button>
-                            <p>Dec 12th</p>
-                            <svg class="edit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>playlist-edit</title><path d="M3 6V8H14V6H3M3 10V12H14V10H3M20 10.1C19.9 10.1 19.7 10.2 19.6 10.3L18.6 11.3L20.7 13.4L21.7 12.4C21.9 12.2 21.9 11.8 21.7 11.6L20.4 10.3C20.3 10.2 20.2 10.1 20 10.1M18.1 11.9L12 17.9V20H14.1L20.2 13.9L18.1 11.9M3 14V16H10V14H3Z" /></svg>
-                            <svg class="delete" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>trash-can</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" /></svg>
-                        </div>
-                    </div>
                 </section>
                 <section>
-                    <div class="Notes-div">
-                        <header>
-                            <h2>Notes</h2>
-                            <h4 class="notes-del">X</h4>
-                        </header>
-                        <div class="notes-parag">
-                            <p>Do Some Chores i our house</p>
-                        </div>
-                    </div>
                     
                 </section>
                 <svg class="asideSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus-circle</title><path d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" /></svg>
