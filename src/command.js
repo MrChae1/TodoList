@@ -93,29 +93,91 @@ export function command(mainCon){
                 }
             });
         }
-        const verifyModals = (mNav, mArray, mainMod) => {
+        const verifyModals = (mNav, mArray, mainMod, secTwo) => {
+            secTwo.textContent = ``;
+            const whatArray = ['arrTasks', 'arrNotes']; 
             const TasksInputs = Array.from(mArray[0].querySelectorAll('*'));
             const NotesInputs = Array.from(mArray[1].querySelectorAll('*'));
             const selected = TasksInputs[8].querySelector('.selected-prio');
-            const indexNo = tasksArray.length + 1;
+            const indexTas = tasksArray.length + 1;
+            const indexNo = notesArray.length + 1;
             const forTasksValue = [TasksInputs[1], TasksInputs[2], TasksInputs[5], selected];
-            const AllTasksValue = forTasksValue.map(key => key.value);
-            const newTasks = new addTasks(...AllTasksValue, indexNo);
-            const allHaveValue = AllTasksValue.every(value => value !== '' && value !== null);
-            tasksArray.push(newTasks);
-            
             if(mNav[0].classList.contains('C-tasks') && mNav[0].classList.contains('special-btn')){
-                allHaveValue ?  addtoSection(tasksArray): addingError(mainMod); 
-                
+                validateValue(forTasksValue, secTwo, mainMod, whatArray[0], indexTas);
             }
             else if (mNav[1].classList.contains('C-notes') && mNav[1].classList.contains('special-btn')) {
                 
             }   
         }
 
-        const addtoSection = (newApp) => {
+        const validateValue = (TNVal, secTwo, mainMod, wArr, index) => {
+            const AllValue = TNVal.map(key => key.value);
+            const allHaveValue = AllValue.every(value => value !== '' && value !== null);
+            if(allHaveValue){
+                passValue(wArr, secTwo, mainMod, AllValue, index, TNVal);
+            }
+            else{
+                addingError(mainMod);
+            }
             
         }
+
+        const passValue = (wArr, secTwo, mainMod, Val, index, TNVal) => {
+
+                if(wArr === 'arrTasks'){
+                    const newTasks = new addTasks(...Val, index);
+                    tasksArray.push(newTasks);
+                    addtoSection(tasksArray, secTwo, wArr);
+                }
+                else if(wArr === 'arrNotes'){
+
+                }
+                
+                mainMod.style.display = 'none';
+                TNVal.forEach(key => key.value = '');
+        }
+
+        const addtoSection = (newApp, secondSec, mainMod) => {
+            
+            for(const inTasks of newApp){
+                const mainDiv = document.createElement('div');
+                mainDiv.classList.add('tasks-div')
+                const subDiv = document.createElement('div');
+                subDiv.classList.add('tasks');
+                changePrio(inTasks.prio, mainDiv);
+                subDiv.innerHTML = `
+                    <input type="checkbox" name="myCheckbox" id="myCheckbox" value="checkboxValue" data-index="${inTasks.index}">
+                    <label for="myCheckbox">${inTasks.title}</label>
+                    <button>Details</button>
+                    <p>${inTasks.dates}</p>
+                    <svg class="edit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>playlist-edit</title><path d="M3 6V8H14V6H3M3 10V12H14V10H3M20 10.1C19.9 10.1 19.7 10.2 19.6 10.3L18.6 11.3L20.7 13.4L21.7 12.4C21.9 12.2 21.9 11.8 21.7 11.6L20.4 10.3C20.3 10.2 20.2 10.1 20 10.1M18.1 11.9L12 17.9V20H14.1L20.2 13.9L18.1 11.9M3 14V16H10V14H3Z" /></svg>
+                    <svg class="delete" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>trash-can</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" /></svg>
+                `;
+                // delAndEdit(subDiv);
+                mainDiv.append(subDiv);
+                secondSec.append(mainDiv);
+            
+            }
+            
+        }
+
+        const changePrio = (prioColor, Main) => {
+            if(prioColor === 'low'){
+                Main.style.backgroundColor = 'yellowgreen';
+            }
+            else if(prioColor === 'medium'){
+                Main.style.backgroundColor = 'rgb(137, 137, 87)';
+            }
+            else if(prioColor === 'high'){
+                Main.style.backgroundColor = 'red';
+            }
+        }
+
+        const DelEditDetail = (SDiv) => {
+            const sDivbtn = Array.from(SDiv.querySelectorAll('svg'));
+            // for later 
+        }
+        
 
         const addingError = (main) => {
             const errorModal = main.querySelector('.errorPopUp');
@@ -146,6 +208,8 @@ export function command(mainCon){
     function commandClick(){
         const runCom = commandRun()
         const modalsTag = mainCon.querySelector('.section-modals');
+        const asideTag = mainCon.querySelector('aside');
+        const allSec = Array.from(asideTag.querySelectorAll('section'));
         const navTag = mainCon.querySelector('nav');
         const modalNav = modalsTag.querySelector('nav');
         const mnBtn = Array.from(modalNav.querySelectorAll('button'));
@@ -158,10 +222,10 @@ export function command(mainCon){
             });
         }
         function plusFunction(){
-            const asideTag = mainCon.querySelector('aside');
             const plusbtn = asideTag.querySelector('.asideSVG');
             plusbtn.addEventListener('click', () => {
                 runCom.displayModals(modalsTag, modalsArray);
+
             });
         }
 
@@ -180,7 +244,7 @@ export function command(mainCon){
         function addData(){
             const addBtn = modalsTag.querySelector('.modals-add');
             addBtn.addEventListener('click', () => {
-                runCom.verifyModals(mnBtn, modalsArray, modalsTag);
+                runCom.verifyModals(mnBtn, modalsArray, modalsTag, allSec[1]);
                 
             });
         }
