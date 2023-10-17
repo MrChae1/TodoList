@@ -42,6 +42,15 @@ export function subComponent(){
                     </div>
                 </section>
                 <section>
+                    <div class="Notes-div">
+                        <header>
+                            <h2>Notes</h2>
+                            <h4 class="notes-del">X</h4>
+                        </header>
+                        <div class="notes-parag">
+                            <p>Do Some Chores i our house</p>
+                        </div>
+                    </div>
                     
                 </section>
                 <svg class="asideSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus-circle</title><path d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" /></svg>
@@ -88,7 +97,7 @@ export function subComponent(){
                             <div class="prio-btn">
                                 <button class="low selected-prio" value="low">LOW</button>
                                 <button class="medium" value="medium">MEDIUM</button>
-                                <button class="high" vlaue="high">HIGH</button>
+                                <button class="high" value="high">HIGH</button>
                             </div>     
                         </div> 
                     </div>
