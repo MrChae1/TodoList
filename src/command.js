@@ -204,7 +204,7 @@ export function command(mainCon){
             const sDivbtn = Array.from(SDiv.querySelectorAll('*'));
             forCheckbox(sDivbtn[0], sDivbtn);
             forDetails(sDivbtn[2], sDivbtn, tasksVal, taskSec);
-            // forEdits(sDivbtn[4],sDivbtn, tasksVal); //Work with this tomorrow this is for edit svg;
+            forEdits(sDivbtn[4],sDivbtn, tasksVal); //Work with this tomorrow this is for edit svg;
             // forDelete(sDivbtn[7], sDivbtn, tasksVal); //Work with this tomorrow thisis for delete;
 
         }
@@ -236,6 +236,30 @@ export function command(mainCon){
                 const detailExit = DetailsModal.querySelector('h4');
                 removeModals(detailExit,DetailsModal, null,null);
                 document.body.append(DetailsModal);
+            });
+        }
+
+        const forEdits = (editBtn, suBtn, tasksVal) => {
+            editBtn.addEventListener('click', () => {
+                const editModals = document.createElement('div');
+                editModals.classList.add('edits-modal');
+                editModals.innerHTML = `
+                    <div class="sub-edit">
+                        <h4 class="details-exit">X</h4>
+                        <input type="text" value="${tasksVal.title}">
+                        <textarea value="${tasksVal.desc}" cols="30" rows="10"></textarea>
+                        <input type="dates" value="${tasksVal.dates}">
+                        <div class='new-prio'>
+                            <button value='low'>Low</button>
+                            <button value='medium'>Medium</button>
+                            <button value='high'>High</button>
+                        </div>
+                        <button class="forEdit">Save Edit</button>
+                    </div>
+                `;
+                const detailExit = editModals.querySelector('h4');
+                removeModals(detailExit, editModals, null,null);
+                document.body.append(editModals);
             });
         }
         
