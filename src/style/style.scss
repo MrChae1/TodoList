@@ -202,3 +202,23 @@ footer{
         }
     }
 }
+.edits-modal{
+    @extend .Details-modal;
+    .sub-edit{
+        @extend .sub-details;
+    }
+    h4{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: .2rem .5rem;
+        border-radius: 20px;
+        cursor: pointer;
+        &:hover{
+           color: red;
+           transform: scale(1.1); 
+        }
+    }
+
+}
