@@ -1,32 +1,69 @@
 import './style/style.scss';
 
+const tasksArray = [];
+const notesArray = [];
+class addNotes{
+    constructor(title, desc, index){
+        this.title = title,
+        this.desc = desc,
+        this.index = index
+    }
+}
+
+class addTasks extends addNotes{
+    constructor(title, desc, date, prio, index){
+        super(title, desc, index);
+        this.date = date,
+        this.prio = prio
+    }
+}
+
+
+function addNew(title, desc, date, prio, index){
+    this.title = title,
+    this.desc = desc,
+    this.index = index
+    this.date = date,
+    this.prio = prio  
+}
+
 //removeClass
 export const removeClass = (navBtn) => {
     navBtn.forEach(key => key.classList.remove('special-btn'));
-    navBtn.forEach(key => key.classList.remove('special-Nav'));
 }
 
-//Add class special nav
+/**
+ * Change the style of navigation buttons based on the clicked element's class.
+ * @param {Event} event - The click event.
+ * @param {HTMLElement[]} navBtn - An array of navigation buttons.
+ */
 export const changeNav = (event, navBtn) => {
-    if(event.target.className === 'Home-btn'){
-        navBtn[0].classList.add('special-btn'); // HomeButton 
-    }
-    else if(event.target.className === 'Task-btn'){
-        navBtn[1].classList.add('special-btn'); // TasksButton
-    }
-    else if(event.target.className === 'Notes-btn'){
-        navBtn[2].classList.add('special-btn'); // NotesButton
-    }
-    else if(event.target.className === 'C-tasks'){
+    // Define class-to-button mappings
+    const classToButton = {
+        'Home-btn': 0,
+        'Task-btn': 1,
+        'Notes-btn': 2,
+        'C-tasks': 0,
+        'C-notes': 1,
+        'low': 0,
+        'medium': 1,
+        'high': 2,
+    };
+
+    // Get the clicked element's class
+    const clickedClass = event.target.className;
+
+    // Check if the class exists in the mapping
+    if (classToButton.hasOwnProperty(clickedClass)) {
+        const buttonIndex = classToButton[clickedClass];
+        // Add the 'special-btn' class to the corresponding button
+        navBtn[buttonIndex].classList.add('special-btn');
+    } else {
+        // Handle the default case, e.g., adding 'special-btn' to HomeButton
         navBtn[0].classList.add('special-btn');
     }
-    else if(event.target.className === 'C-notes'){
-        navBtn[1].classList.add('special-btn');
-    }
-    else {
-        navBtn[0].classList.add('special-btn'); // HomeButton
-    }      
 }
+
 
 //Show specific Section depends on the button clicked in nav
 export const showSection = (navBtn, allSection) => {
@@ -54,4 +91,101 @@ export const ShowDiv = (modalNav, mainDiv) => {
 export const exitBtn = (child) => {
     child.remove();
 }
+
+
+export const verifyValue = (anyData, modalBtn, selected, modalTag, Section) => {
+    const getData = anyData.map(key => key.value);
+    const allHaveValue = getData.every(value => value !== '' && value !== null);
+    if(allHaveValue){
+        if(modalBtn[0].classList.contains('special-btn')){
+            getData.push(selected.value, tasksArray.length);
+            const newTasks = new addNew(...getData);
+            console.log(newTasks);
+            tasksArray.push(newTasks);
+            Section.textContent = ``;
+            appendTasks(tasksArray, Section);
+        }
+        else{
+            getData.push(notesArray.length);
+            const newNotes = new addNotes(...getData);
+            notesArray.push(newNotes);
+        }
+        exitBtn(modalTag);
+        
+    }
+    else{
+        invalidModal();
+    }
+}
+
+const invalidModal = () => {
+    const errorContainer = document.createElement('div');
+    errorContainer.classList.add('error-container');
+    const ErrorTag = document.createElement('div');
+    ErrorTag.classList.add('errorPopUp');
+    ErrorTag.innerHTML = `
+        <header>
+            <h2>Something Missing</h2>
+            <h4 class="inerror">X</h4>
+        </header>
+        <div class="errorMessage">
+            <p>Please provide needed data....</p>
+        </div> 
+    `;
+
+    const ErrorExit = ErrorTag.querySelector('h4');
+    ErrorExit.addEventListener('click', () => {
+        exitBtn(errorContainer);
+    });
+    errorContainer.appendChild(ErrorTag);
+    document.body.appendChild(errorContainer);
+}
+
+const appendTasks = (array, section) => {
+    if(section.classList.contains('tasksSection')){
+        for(const arrayTasks of array){
+            const mainDiv = document.createElement('div');
+            mainDiv.classList.add('tasks-div');
+            mainDiv.setAttribute("data-index", arrayTasks.index);
+            const subDiv = document.createElement('div');
+            subDiv.classList.add('tasks');
+            changePrio(arrayTasks.prio, mainDiv);
+            subDiv.innerHTML = `
+                <input type="checkbox" name="myCheckbox" id="myCheckbox" value="checkboxValue" >
+                <label for="myCheckbox">${arrayTasks.title}</label>
+                <button>Details</button>
+                <p>${arrayTasks.date}</p>
+                <svg class="delete" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>trash-can</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" /></svg>
+            `;
+            const DelBtn = subDiv.querySelector('.delete');
+            DelBtn.addEventListener('click', () =>{
+                removeTasks(arrayTasks.index, array, section);
+            });
+
+            mainDiv.append(subDiv);
+            section.append(mainDiv);
+        }
+    }
+}
+
+const changePrio = (prioColor, Main) => {
+    if(prioColor === 'low'){
+        Main.style.backgroundColor = 'yellowgreen';
+    }
+    else if(prioColor === 'medium'){
+        Main.style.backgroundColor = 'rgb(137, 137, 87)';
+    }
+    else if(prioColor === 'high'){
+        Main.style.backgroundColor = 'rgb(44, 20, 195)';
+    }
+}
+
+const removeTasks = (index, array) => {
+    array.splice(index, 1);
+    const elementsToRemove = document.querySelector(`[data-index="${index}"]`);
+    exitBtn(elementsToRemove);
+       
+}
+
+
 
