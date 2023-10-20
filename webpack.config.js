@@ -5,8 +5,8 @@ module.exports = {
     mode: 'development',
     entry: {
         index: './src/index.js',
-        print: './src/index.js',
-        command: './src/index.js',  
+        print: './src/print.js',
+        command: './src/command.js',  
     },
     devtool: 'inline-source-map',
     devServer: {
