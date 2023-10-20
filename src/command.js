@@ -3,101 +3,55 @@ import './style/style.scss';
 //removeClass
 export const removeClass = (navBtn) => {
     navBtn.forEach(key => key.classList.remove('special-btn'));
+    navBtn.forEach(key => key.classList.remove('special-Nav'));
 }
 
 //Add class special nav
 export const changeNav = (event, navBtn) => {
     if(event.target.className === 'Home-btn'){
-        navBtn[0].classList.add('special-btn'); // HomeButton
-        // showSection(navBtn[0]); 
+        navBtn[0].classList.add('special-btn'); // HomeButton 
     }
     else if(event.target.className === 'Task-btn'){
         navBtn[1].classList.add('special-btn'); // TasksButton
-        // showSection(navBtn[1]);  
     }
     else if(event.target.className === 'Notes-btn'){
         navBtn[2].classList.add('special-btn'); // NotesButton
-        // showSection(navBtn[2]); 
+    }
+    else if(event.target.className === 'C-tasks'){
+        navBtn[0].classList.add('special-btn');
+    }
+    else if(event.target.className === 'C-notes'){
+        navBtn[1].classList.add('special-btn');
+    }
+    else {
+        navBtn[0].classList.add('special-btn'); // HomeButton
     }      
 }
 
 //Show specific Section depends on the button clicked in nav
-export const showSection = (navBtn, aside) => {
-    const allSection = Array.from(aside.querySelectorAll('section'));
+export const showSection = (navBtn, allSection) => {
     allSection.forEach(key => key.style.display = 'none');
     if(navBtn[0].classList.contains('special-btn')){
-        allSection[0].style.display = 'block'; 
+        allSection[0].style.display = 'block'; //forHome Section 
     }
     else if(navBtn[1].classList.contains('special-btn')){
-        allSection[1].style.display = 'grid'; 
+        allSection[1].style.display = 'grid';//forTasks Section 
     }
     else if(navBtn[2].classList.contains('special-btn')){
-        allSection[2].style.display = 'grid';
+        allSection[2].style.display = 'grid'; //forNotes Section
     }
 }
 
+export const ShowDiv = (modalNav, mainDiv) => {
+    mainDiv.forEach(key => key.style.display = 'none');
+    if(modalNav[0].classList.contains('special-btn')){
+        mainDiv[0].style.display = 'grid'; //forHome Section 
+    }
+    else if(modalNav[1].classList.contains('special-btn')){
+        mainDiv[1].style.display = 'flex';//forTasks Section 
+    }
+}
+export const exitBtn = (child) => {
+    child.remove();
+}
 
-
-
-
-
-    // return {changeNav}
-// } 
-
-// export function command(mainContainer){
-    
-//     function commandRun(){
-//         const changeNav = (nav, allSection) => {
-//             nav.addEventListener('click', function(event){
-//                 if(nav.classList.contains('main-nav')){
-//                     mainNav(event, nav, allSection);
-//                 }
-//             });
-//         }
-//         const mainNav = (e, nav, allSection) => {
-//             const navBtn = Array.from(nav.querySelectorAll('button'));
-//             navBtn.forEach(key => key.classList.remove('special-btn'));
-//             allSection.forEach(key =>key.style.display = 'none');
-//             if(e.target.className === 'Home-btn'){
-//                 navBtn[0].classList.add('special-btn'); // HomeButton
-//                 allSection[0].style.display = 'block'; // Show Home Section
-//             }
-//             else if(e.target.className === 'Task-btn'){
-//                 navBtn[1].classList.add('special-btn'); // TasksButton
-//                 allSection[1].style.display = 'grid'; // Show Task Section
-//             }
-//             else if(e.target.className === 'Notes-btn'){
-//                 navBtn[2].classList.add('special-btn'); // NotesButton
-//                 allSection[2].style.display = 'grid'; // Show Notes Section
-//             }
-//         }
-
-//         //The Plus Icon is clicked
-//         const showModals = () => {
-//             // mainContainer.appendChild(subModals.forModals());
-//         }
-
-//         return{changeNav , showModals}
-        
-//     }
-//     function commandClick(){
-//         const runCom = commandRun();
-//         const navTag = mainContainer.querySelector('nav');
-//         const asideTag = mainContainer.querySelector('aside');
-//         const allSection = Array.from(asideTag.querySelectorAll('section'));
-//         const plusIcon = asideTag.querySelector('.asideSVG');
-//         const changeSection = () => {
-//             runCom.changeNav(navTag, allSection);
-//         }
-//         const AddNew = () =>{
-//             plusIcon.addEventListener('click', () =>{
-//                 runCom.showModals();
-//             });
-//         }
-
-//         changeSection();
-//         AddNew();
-        
-//     }
-//     const runCommand = commandClick();
-// }
