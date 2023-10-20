@@ -62,10 +62,12 @@ aside{
         section:nth-child(1){
             @include forHandW();
             display: block;
+            background-color: aquamarine;
         }
         section:nth-child(2){
             @include forHandW();
             display: none;
+            background-color: red;
             grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
             gap: .5rem;
             .tasks-div{
@@ -121,6 +123,7 @@ aside{
         section:nth-child(3){
             @include forHandW();
             display: none;
+            background-color: aqua;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
             gap: .5rem;
@@ -175,50 +178,4 @@ footer{
     @include ContainerTag(flex);
     grid-area:4/1/5/3;
     justify-content: center;
-}
-.Details-modal{
-    @extend .section-modals;
-    display: flex;
-    .sub-details{
-        background-color: #fff;
-        padding: 2rem;
-        border-radius: 5px;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        gap: .5rem;
-        h4{
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: .2rem .5rem;
-            border-radius: 20px;
-            cursor: pointer;
-            &:hover{
-               color: red;
-               transform: scale(1.1); 
-            }
-        }
-    }
-}
-.edits-modal{
-    @extend .Details-modal;
-    .sub-edit{
-        @extend .sub-details;
-    }
-    h4{
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background-color: rgba(0, 0, 0, 0.5);
-        padding: .2rem .5rem;
-        border-radius: 20px;
-        cursor: pointer;
-        &:hover{
-           color: red;
-           transform: scale(1.1); 
-        }
-    }
-
 }

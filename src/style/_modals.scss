@@ -2,7 +2,7 @@
 
 .section-modals{
     @include forHandW();
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -174,5 +174,6 @@
     }
 
 }
+
 
 
