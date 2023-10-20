@@ -55,9 +55,6 @@
         @include forHovertwo();
     }
 }
-.special-Nav{
-    @extend .special-btn;
-}
 .selected-prio{
     background-color: black;
 }

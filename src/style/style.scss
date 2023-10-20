@@ -75,7 +75,7 @@ aside{
                     @include ContainerTag(grid);
                     margin-left: 2%;
                     width: 98%;
-                    grid-template-columns: .2fr 5fr 1fr 1.5fr repeat(2, .5fr);
+                    grid-template-columns: .2fr 5fr 1fr 1.5fr .5fr;
                     background-color: white;
                     align-content: center;
                     border: none;
@@ -105,14 +105,14 @@ aside{
                     padding-top: 8px;
                     text-align: center
                 }
-                .edit{
-                    @include forHandW();
-                    grid-column: 5/6;
-                    cursor: pointer;
-                }
+                // .edit{
+                //     @include forHandW();
+                //     grid-column: 5/6;
+                //     cursor: pointer;
+                // }
                 .delete{
                     @include forHandW();
-                    grid-column: 6/7;
+                    grid-column: 5/6;
                     cursor: pointer;
                 }
             }
