@@ -1,6 +1,5 @@
 import './style/style.scss';
 
-
 function component(){ 
     const mainContainer = document.createElement('main');
     mainContainer.classList.add('mainCon');
@@ -21,7 +20,7 @@ function component(){
         import('./command').then(module => {
             module.removeClass(navBtn);
             module.changeNav(event, navBtn);
-            module.showSection(navBtn, asideTag);
+            module.showSection(navBtn, allSection);
         })
         .catch(error => {
             console.error('Error while importing module: ', error);
@@ -31,79 +30,31 @@ function component(){
     const asideTag = document.createElement('aside');
     asideTag.innerHTML = `
         <main> 
-            <section>
-                <p>Hi</p>   
-            </section>
-            <section>
-                <p>He</p>  
-            </section>
             <section> 
-                <p>Ho</p>  
+            hi
+            </section>
+            <section>
+            he 
+            </section>
+            <section>
+            ha  
             </section>
             <svg class="asideSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus-circle</title><path d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" /></svg>   
         </main>
     `;
 
+    const allSection = Array.from(asideTag.querySelectorAll('section'));
+    const plusIcon = asideTag.querySelector('.asideSVG');
+    plusIcon.addEventListener('click', () =>{
+        import('./print').then(module => {
+           module.forModals(mainContainer); 
+        })
+    });
+
     const footerTag = document.createElement('footer');
     footerTag.innerHTML = `
         <p>&copy; 2023 TodoThis. All rights reserved.</p>
     `;
-
-    const modalTag = document.createElement('div');
-    modalTag.classList.add('section-modals');
-    modalTag.innerHTML = `
-        <div class="modals">
-            <header>
-                <h2>CREATE NEW...</h2>
-                <h4>X</h4>
-            </header>
-            <nav class="nav-modal">
-                <button class="C-tasks special-btn">TASKS</button>
-                <button class="C-notes">NOTES</button>
-            </nav>
-            <div class="sub-modals">
-                <div class="tasks-modals">
-                    <div class="tasks-inputs">
-                        <input type="text" placeholder="TITLE">
-                        <textarea name="tasks-text" id="tasks-text" cols="30" rows="10" placeholder="Tell me something about this tasks?"></textarea>
-                    </div>
-                    <div class="tasks-dates">
-                        <label for="tasksDates">Due Dates: </label>
-                        <input type="date" id="tasksDates">
-                    </div>
-                    <div class="tasks-Prioprity">
-                        <h3>Priority:</h3>
-                        <div class="prio-btn">
-                            <button class="low selected-prio" value="low">LOW</button>
-                            <button class="medium" value="medium">MEDIUM</button>
-                            <button class="high" value="high">HIGH</button>
-                        </div>     
-                    </div> 
-                </div>
-                <div class="notes-modals">
-                    <div class="notes-inputs">
-                        <input type="text" placeholder="TITLE">
-                        <textarea name="notes-text" id="notes-text" cols="30" rows="10" placeholder="Tell me something about this notes?"></textarea>
-                    </div>
-                </div>
-                <div class="modals-btn">
-                    <button class="modals-add">ADD NEW</button>
-                </div>
-            </div>
-            <div class="errorPopUp">
-                <header>
-                    <h2>Something Missing</h2>
-                    <h4 class="inerror">X</h4>
-                </header>
-                <div class="errorMessage">
-                    <p>Please provide needed data....</p>
-                </div> 
-            </div>
-        </div>
-        `;
-
-
-
     mainContainer.append(headerTag, navTag, asideTag, footerTag);
     
     return mainContainer;
