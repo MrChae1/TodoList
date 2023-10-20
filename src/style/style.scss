@@ -62,12 +62,10 @@ aside{
         section:nth-child(1){
             @include forHandW();
             display: block;
-            background-color: aquamarine;
         }
         section:nth-child(2){
             @include forHandW();
             display: none;
-            background-color: red;
             grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
             gap: .5rem;
             .tasks-div{
@@ -123,7 +121,6 @@ aside{
         section:nth-child(3){
             @include forHandW();
             display: none;
-            background-color: aqua;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
             gap: .5rem;
@@ -169,6 +166,7 @@ aside{
             cursor: pointer;
             &:hover{
                 fill: blue;
+                transform: scale(1.1);
             }
         }
     }
