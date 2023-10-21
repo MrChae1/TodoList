@@ -30,7 +30,7 @@
         h2{
             cursor: default;
         }
-        h4{
+        .forExit{
             padding: 0 5px 0 0;
             cursor: pointer;
             &:hover{
@@ -194,6 +194,81 @@
         }
     }
 
+}
+.detailMain{
+    @extend .section-modals;
+    .detailSub{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 50%;
+        left: 53%;
+        transform: translate(-50%, -50%);
+        width: 405px;
+        height: 400px;
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 5px;
+        gap: .5rem;
+        h4{
+            position: absolute;
+            right: 10px;
+            top: 7px;
+            // padding: 0 5px 0 0;
+            cursor: pointer;
+            &:hover{
+                color: red;
+                transform: scale(1.1);
+            }
+        }     
+
+    }
+}
+.details-title{
+    width: 100%;
+    label{
+        font-weight: bold;
+    }
+    input{
+        width: 80%;
+        border: none;
+    }
+}
+.details-desc{
+    display: flex;
+    flex-direction: column;
+    // text-align: center;
+    gap: .5rem;
+    font-weight: bold;
+    textArea{
+        text-indent: 20px;
+        resize: none;
+        // border: none;
+        padding: .5rem;
+    }
+}
+.details-date{
+    display: flex;
+    label{
+        font-weight: bold;
+        padding-right: 10px;
+    }
+    p{
+        display: block;
+    }
+    input{
+        display: none;
+    }
+}
+.details-Prio{
+    display: flex;
+    label{
+        font-weight: bold;
+        padding-right: 10px; 
+    }
+    p{
+       display: block; 
+    }
 }
 
 
