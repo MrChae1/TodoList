@@ -138,11 +138,16 @@ const appendTasks = (array, section) => {
             subDiv.innerHTML = `
                 <input type="checkbox" name="myCheckbox" id="myCheckbox" value="checkboxValue" >
                 <label for="myCheckbox">${arrayTasks.title}</label>
-                <button>Details</button>
+                <button class="details-btn">Details</button>
                 <p>${arrayTasks.date}</p>
                 <svg class="delete" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>trash-can</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" /></svg>
             `;
             const allSubBtn = Array.from(subDiv.querySelectorAll('*'));
+            //Checkbox button
+            allSubBtn[0].addEventListener('change', function(e){
+                boxChange(e, allSubBtn[1]);
+            });
+
             //Delete Button
             allSubBtn[4].addEventListener('click', () =>{
                 removeTasks(arrayTasks.index, array, section);
@@ -165,6 +170,15 @@ const changePrio = (prioColor, Main) => {
         Main.style.backgroundColor = 'rgb(44, 20, 195)';
     }
 }
+
+const boxChange = (e, label) => {
+    if(e.target.checked){
+        label.style.cssText = 'text-decoration-line: line-through; text-decoration-thickness: 3px; text-decoration-style: solid'; //This is label
+    }
+    else{
+        label.style.textDecoration = 'none'; //This is label
+    } 
+} 
 
 const removeTasks = (index, array, section) => {
     // let newIndex = 0;
