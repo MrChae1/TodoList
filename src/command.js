@@ -85,7 +85,6 @@ export const verifyValue = (anyData, modalBtn, selected, modalTag, Section) => {
         if(modalBtn[0].classList.contains('special-btn')){
             getData.push(selected.value, tasksArray.length);
             const newTasks = new addNew(...getData);
-            console.log(getData);
             tasksArray.push(newTasks);
             Section.textContent = ``;
             appendTasks(tasksArray, Section);
@@ -138,7 +137,7 @@ const appendTasks = (array, section) => {
             subDiv.innerHTML = `
                 <input type="checkbox" name="myCheckbox" id="myCheckbox" value="checkboxValue" >
                 <label for="myCheckbox">${arrayTasks.title}</label>
-                <button class="details-btn">Details</button>
+                <button>Details</button>
                 <p>${arrayTasks.date}</p>
                 <svg class="delete" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>trash-can</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" /></svg>
             `;
@@ -146,6 +145,12 @@ const appendTasks = (array, section) => {
             //Checkbox button
             allSubBtn[0].addEventListener('change', function(e){
                 boxChange(e, allSubBtn[1]);
+            });
+
+            //Details button
+            allSubBtn[2].addEventListener('click', () => {
+                console.log('Hello');
+                ShowDetails(subDiv, arrayTasks);
             });
 
             //Delete Button
@@ -178,7 +183,46 @@ const boxChange = (e, label) => {
     else{
         label.style.textDecoration = 'none'; //This is label
     } 
-} 
+}
+
+const ShowDetails = (alltasks, array) => {
+    const detailMain = document.createElement('div');
+    detailMain.classList.add('detailMain');
+    const detailSub = document.createElement('div');
+    detailSub.classList.add('detailSub');
+    detailSub.innerHTML = `
+        <h4>X</h4>
+        <div class="details-title">
+            <label>Tasks: </label>
+            <input type="text" class="tasksTitle" disabled='true' value='${array.title}'>
+        </div>
+        <div class="details-desc">
+            <label>Tasks Description:</label>
+            <textarea name="tasks-desc" id="tasks-text" cols="30" rows="10" value='${array.desc}' disabled='true'></textarea>
+        </div>
+        <div class="details-date">
+            <label>Tasks Due Date: </label>
+            <p>${array.date}</p>
+            <input type="date" id="desc-Date">
+        </div>
+        <div class="details-Prio">
+            <label>Priority Level: </label>
+            <p>${array.prio}</p>
+        </div>
+        <div class="details-Prio">
+            <label>Priority Level: </label>
+            <p>${array.prio}</p>
+        </div>
+    `;
+    const textArea = detailSub.querySelector('textarea');
+    textArea.value = `${array.desc}`;
+    const detailExit = detailSub.querySelector('h4');
+    detailExit.addEventListener('click', () => {
+        exitBtn(detailMain);
+    });
+    detailMain.appendChild(detailSub);
+    document.body.appendChild(detailMain);
+}
 
 const removeTasks = (index, array, section) => {
     // let newIndex = 0;
