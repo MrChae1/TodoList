@@ -7,7 +7,7 @@ export function forModals(mainCon){
         <div class="modals">
             <header>
                 <h2>CREATE NEW...</h2>
-                <h4>X</h4>
+                <h4 class='forExit'>X</h4>
             </header>
             <nav class="nav-modal">
                 <button class="C-tasks special-btn">TASKS</button>
