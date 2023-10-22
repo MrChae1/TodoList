@@ -149,8 +149,7 @@ const appendTasks = (array, section) => {
 
             //Details button
             allSubBtn[2].addEventListener('click', () => {
-                console.log('Hello');
-                ShowDetails(subDiv, arrayTasks);
+                ShowDetails(allSubBtn, arrayTasks, mainDiv);
             });
 
             //Delete Button
@@ -185,7 +184,7 @@ const boxChange = (e, label) => {
     } 
 }
 
-const ShowDetails = (alltasks, array) => {
+const ShowDetails = (alltasks, array, mainDiv) => {
     const detailMain = document.createElement('div');
     detailMain.classList.add('detailMain');
     const detailSub = document.createElement('div');
@@ -207,30 +206,42 @@ const ShowDetails = (alltasks, array) => {
         <div class="details-date">
             <label>Tasks Due Date: </label>
             <p>${array.date}</p>
-            <input type="date" id="desc-Date">
+            <input type="date" id="desc-Date" value="${array.date}">
         </div>
         <div class="details-Prio">
             <label>Priority Level: </label>
             <p>${array.prio}</p>
             <div class="desc-prio">
-                <button>Low</button>
-                <button>Medium</button>
-                <button>High</button>
+                <button class="desc-low" value="low">Low</button>
+                <button class="desc-medium" value="medium">Medium</button>
+                <button class="desc-high" value="high">High</button>
             </div>
         </div>
         <div class="Desc-btn">
             <div class="desc-edit">
-                <button>Edit Tasks</button>
+                <button class="Dell">Edit Tasks</button>
             </div>
             <div class="Edit-btn">
                 <button class="Save-edit">Save Tasks</button>
                 <button class="Cancel-Edit">Cancel</button>
-            </div>
+            </div> 
         </div>
     `;
+
+    const allDetails = Array.from(detailSub.querySelectorAll('*'));
     const textArea = detailSub.querySelector('textarea');
     textArea.value = `${array.desc}`;
     const detailExit = detailSub.querySelector('h4');
+    const editDell = detailSub.querySelector('.Dell');
+
+    editDell.addEventListener('click', function(e){
+        console.log(e);
+        import('./detailCommand')
+        .then((module) => {
+            module.ChangeDetails(allDetails, editDell);
+        });
+    });
+    //Detail Exit
     detailExit.addEventListener('click', () => {
         exitBtn(detailMain);
     });
@@ -239,7 +250,6 @@ const ShowDetails = (alltasks, array) => {
 }
 
 const removeTasks = (index, array, section) => {
-    // let newIndex = 0;
     const newArray = [];
     array.splice(index, 1);
     const elementsToRemove = document.querySelector(`[data-index="${index}"]`);
@@ -256,5 +266,6 @@ const removeTasks = (index, array, section) => {
     section.innerHTML = ``;
     appendTasks(tasksArray, section);
 }
+
 
 
