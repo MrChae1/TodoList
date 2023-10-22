@@ -194,11 +194,15 @@ const ShowDetails = (alltasks, array) => {
         <h4>X</h4>
         <div class="details-title">
             <label>Tasks: </label>
-            <input type="text" class="tasksTitle" disabled='true' value='${array.title}'>
+            <p>${array.title}</p>
+            <input type="text" class="tasksTitle" value='${array.title}'>
         </div>
         <div class="details-desc">
             <label>Tasks Description:</label>
-            <textarea name="tasks-desc" id="tasks-text" cols="30" rows="10" value='${array.desc}' disabled='true'></textarea>
+            <div class="desc-container">
+                <p>${array.desc}</p>
+                <textarea name="tasks-desc" id="tasks-text" cols="30" rows="10"></textarea>
+            </div>
         </div>
         <div class="details-date">
             <label>Tasks Due Date: </label>
@@ -208,10 +212,20 @@ const ShowDetails = (alltasks, array) => {
         <div class="details-Prio">
             <label>Priority Level: </label>
             <p>${array.prio}</p>
+            <div class="desc-prio">
+                <button>Low</button>
+                <button>Medium</button>
+                <button>High</button>
+            </div>
         </div>
-        <div class="details-Prio">
-            <label>Priority Level: </label>
-            <p>${array.prio}</p>
+        <div class="Desc-btn">
+            <div class="desc-edit">
+                <button>Edit Tasks</button>
+            </div>
+            <div class="Edit-btn">
+                <button class="Save-edit">Save Tasks</button>
+                <button class="Cancel-Edit">Cancel</button>
+            </div>
         </div>
     `;
     const textArea = detailSub.querySelector('textarea');
