@@ -21,22 +21,24 @@ export const ChangeDetails = (allDetails, editDell) => {
     editDell.style.display = window.getComputedStyle(editDell).getPropertyValue('display') === 'none' ? 'block' : 'none';
 }
 
-{/* <div class="Edit-btn">
-<button class="Save-edit">Save Tasks</button>
-<button class="Cancel-Edit">Cancel</button>
-</div>  */}
+export const ChangeTheTasks = (alltasks, array, mainDiv, allDetails, mainArray, detail) => {
+    const Selected = allDetails[17].querySelector('.special-btn');
+    mainArray[array.index].title = allDetails[4].value;
+    mainArray[array.index].desc = allDetails[9].value;
+    mainArray[array.index].date = allDetails[13].value;
+    mainArray[array.index].prio = Selected.value;
+    
+    alltasks[1].textContent = `${mainArray[array.index].title}`;
+    alltasks[3].textContent = `${mainArray[array.index].date}`;
+   
+    import('./command')
+        .then((module) => {
+            module.changePrio(Selected.value, mainDiv);
+            module.exitBtn(detail);
+        });
+}
 
 
-// allDetails[3].style.display = allDetails[3].style.display === 'block' ? 'none' : 'block';
-// allDetails[4].style.display = allDetails[4].style.display === 'none' ? 'block' : 'none';
-// allDetails[8].style.display = allDetails[8].style.display === 'block' ? 'none' : 'block';
-// allDetails[9].style.display = allDetails[9].style.display === 'none' ? 'block' : 'none';
-// allDetails[12].style.display = allDetails[12].style.display === 'block' ? 'none' : 'block';
-// allDetails[13].style.display = allDetails[13].style.display === 'none' ? 'block' : 'none';
-// allDetails[16].style.display = allDetails[16].style.display === 'block' ? 'none' : 'block';
-// allDetails[17].style.display = allDetails[17].style.display === 'none' ? 'flex' : 'none';
-// allDetails[22].style.display = allDetails[22].style.display === 'block' ? 'none' : 'block';
-// window.getComputedStyle(editDell).getPropertyValue('display') == "none" ? editDell.style.display = "block" : editDell.style.display = "none";
 
 
 
