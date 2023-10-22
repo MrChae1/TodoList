@@ -67,6 +67,7 @@
     border: none;
     padding: none;
     grid-template: 5fr .5fr 1fr / 1fr .5fr;
+    text-align: justify;
     .tasks-inputs{
         grid-area: 1/1/2/3;
         @include ContainerTag(grid);
@@ -249,7 +250,7 @@
     // text-align: center;
     gap: .5rem;
     font-weight: bold;
-    
+    text-align: justify;
     .desc-container{
         display: flex;
         gap: .5rem;
@@ -260,6 +261,7 @@
             font-weight: normal;
             text-indent: 20px;
             padding: .5rem;
+            
         }
         textArea{
             width: 100%;
