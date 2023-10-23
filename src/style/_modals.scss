@@ -347,6 +347,39 @@
         width: 50%;
     }
 }
+.editDiv{
+    @extend .section-modals;
+}
+.EditContainer{
+    height: 400px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 2.2rem 1.5rem 1.5rem;
+    gap: .5rem;
+    background-color: white;
+    position: relative;
+    border-radius: 10px;
+    h4{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        &:hover{
+            color: red;
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+    }
+    input{
+        padding: .5rem;
+    }
+    textarea{
+        height: 100%;
+        resize: none;
+        padding: .5rem;
+        overflow: scroll;
+    }
+}
 
 
 
