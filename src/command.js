@@ -93,9 +93,12 @@ export const verifyValue = (anyData, modalBtn, selected, modalTag, Section) => {
             appendTasks(tasksArray, Section);
         }
         else{
-            getData.push(notesArray.length);
-            const newNotes = new addNotes(...getData);
+            getData.push('none', 'none', notesArray.length);
+            const newNotes = new addNew(...getData);
+            console.log(getData);
             notesArray.push(newNotes);
+            Section.textContent = '';
+            appendTasks(notesArray, Section);
         }
         exitBtn(modalTag);
         
@@ -164,6 +167,29 @@ const appendTasks = (array, section) => {
 
             mainDiv.append(subDiv);
             section.append(mainDiv);
+        }
+    }
+    else{
+        for(const notesArray of array){
+            const mainDiv = document.createElement('div');
+                mainDiv.classList.add('Notes-div');
+                mainDiv.innerHTML = `
+                    <header>
+                        <h2>${notesArray.title}</h2>
+                        <h4 class="notes-del">X</h4>
+                    </header>
+                        <div class="notes-parag">
+                            <p>${notesArray.desc}</p>
+                        </div>
+                    `;
+                const notesExit = mainDiv.querySelector('h4');
+
+                notesExit.addEventListener('click',() => {
+                    import('./notesCommand').then(module => {
+                        module.NotesDelete(mainDiv, array, notesArray.index);
+                    });
+                });
+                section.append(mainDiv);
         }
     }
 }
