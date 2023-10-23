@@ -83,8 +83,9 @@ export function forModals(mainCon){
                 module.verifyValue(tasksInputs, MNavbtn, selectedPrio, modalTag, allSection[1]);
 
             }
-            else{
+            else if(MNavbtn[1].classList.contains('special-btn')){
                 module.verifyValue(notesInputs, MNavbtn, null, modalTag, allSection[2]);
+                
             }
         });
 
