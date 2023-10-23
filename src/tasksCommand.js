@@ -89,23 +89,3 @@ export const ShowDetails = (alltasks, array, mainDiv, mainArray) => {
 
 
 
-// const importAndExecute = (element, fn) => {
-//     element.addEventListener('click', () => {
-//         import('./command').then((module) => fn(module));
-//     });
-// };
-
-// // Click events
-// importAndExecute(allDetails[17], (module) => {
-//     module.removeClass(newPrioBtn);
-//     module.changeNav(event, newPrioBtn);
-// });
-
-// importAndExecute(allDetails[26], (module) => {
-//     console.log('Hi');
-//     module.exitBtn(detailMain);
-// });
-
-// importAndExecute(detailExit, (module) => {
-//     module.exitBtn(detailMain);
-// });
