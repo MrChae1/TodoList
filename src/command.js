@@ -89,14 +89,13 @@ export const verifyValue = (anyData, modalBtn, selected, modalTag, Section) => {
             getData.push(selected.value, tasksArray.length);
             const newTasks = new addNew(...getData);
             tasksArray.push(newTasks);
-            Section.textContent = ``;
-            appendTasks(tasksArray, Section);
+            const newArray = [tasksArray[tasksArray.length-1]];
+            appendTasks(newArray, Section);
         }
         else{
             getData.push('none', 'none', notesArray.length);
             const newNotes = new addNew(...getData);
             notesArray.push(newNotes);
-            Section.textContent = '';
             appendTasks(notesArray, Section);
         }
         exitBtn(modalTag);
@@ -149,7 +148,7 @@ const appendTasks = (array, section) => {
             const allSubBtn = Array.from(subDiv.querySelectorAll('*'));
             //Checkbox button
             allSubBtn[0].addEventListener('change', function(e){
-                boxChange(e, allSubBtn[1]);
+                boxChange(e, allSubBtn[1], mainDiv, subDiv);
             });
 
             //Details button
@@ -213,12 +212,17 @@ export const changePrio = (prioColor, Main) => {
     }
 }
 
-const boxChange = (e, label) => {
+const boxChange = (e, label,tasksDiv, subDiv) => {
     if(e.target.checked){
         label.style.cssText = 'text-decoration-line: line-through; text-decoration-thickness: 3px; text-decoration-style: solid'; //This is label
+        tasksDiv.style.boxShadow = 'none';
+
+        subDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
     }
     else{
         label.style.textDecoration = 'none'; //This is label
+        tasksDiv.style.boxShadow = '2px 2px 5px 2px rgba(0, 0, 0, 0.5)';
+        subDiv.style.backgroundColor = '#fff';
     } 
 }
 
