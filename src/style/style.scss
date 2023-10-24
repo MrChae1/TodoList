@@ -55,12 +55,10 @@ aside{
     grid-area: 3/1/4/3;
     position: relative;
     padding: 0;
-    overflow: scroll;
-    
+    overflow: scroll;    
     main{
         @include ContainerTag(flex);
         border: none;
-        overflow: scroll;
         section:nth-child(1){
             @include forHandW();
             display: block;
@@ -120,7 +118,7 @@ aside{
             @include forHandW();
             display: none;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+            grid-template-rows: repeat(auto-fill, minmax(120px, 1fr));
             gap: .5rem;
             .Notes-div{
                 display: flex;
