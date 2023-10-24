@@ -6,7 +6,7 @@ export const NotesDelete = (main, NotesArray, notesIndex) => {
     for(let i = 0; i < NotesArray.length; i++){
         NotesArray[i].index = i;
     }
-    console.log(NotesArray);
+    
 
 }
 
