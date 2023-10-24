@@ -140,11 +140,13 @@ const appendTasks = (array, section) => {
             changePrio(arrayTasks.prio, mainDiv);
             subDiv.innerHTML = `
                 <input type="checkbox" name="myCheckbox" id="myCheckbox" value="checkboxValue" >
-                <label for="myCheckbox">${arrayTasks.title}</label>
+                <label>${arrayTasks.title}</label>
                 <button>Details</button>
                 <p>${arrayTasks.date}</p>
                 <svg class="delete" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>trash-can</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" /></svg>
             `;
+
+            
             const allSubBtn = Array.from(subDiv.querySelectorAll('*'));
             //Checkbox button
             allSubBtn[0].addEventListener('change', function(e){
@@ -160,7 +162,7 @@ const appendTasks = (array, section) => {
 
             //Delete Button
             allSubBtn[4].addEventListener('click', () =>{
-                removeTasks(arrayTasks.index, array, section);
+                removeTasks(arrayTasks.index,  tasksArray, section);
             });
 
             mainDiv.append(subDiv);
@@ -227,21 +229,14 @@ const boxChange = (e, label,tasksDiv, subDiv) => {
 }
 
 const removeTasks = (index, array, section) => {
-    const newArray = [];
     array.splice(index, 1);
     const elementsToRemove = document.querySelector(`[data-index="${index}"]`);
+    const newSection = Array.from(section.querySelectorAll('.tasks-div'));
     exitBtn(elementsToRemove);
-    for(const newAdd of array){
-        newAdd.index = newArray.length;
-        const myArray = Object.values(newAdd);
-        myArray.splice(2, 1);
-        myArray.push(newAdd.index);
-        const newerAdd = new addNew(...myArray);
-        newArray.push(newerAdd);  
+    for(let i = 0; i < array.length; i++){
+        newSection[i].setAttribute('data-index', i);
+        array[i][2] = i;
     }
-    array = newArray;
-    section.innerHTML = ``;
-    appendTasks(tasksArray, section);
 }
 
 
