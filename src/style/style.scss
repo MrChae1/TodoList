@@ -55,10 +55,12 @@ aside{
     grid-area: 3/1/4/3;
     position: relative;
     padding: 0;
+    overflow: scroll;
     
     main{
         @include ContainerTag(flex);
         border: none;
+        overflow: scroll;
         section:nth-child(1){
             @include forHandW();
             display: block;
@@ -68,6 +70,7 @@ aside{
             display: none;
             grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
             gap: .5rem;
+            
             .tasks-div{
                 @include ContainerTag(block);
                 padding: 0;
@@ -158,9 +161,9 @@ aside{
         
         .asideSVG{
             display: block;
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
+            position: fixed;
+            bottom: 62px;
+            right: 19px;
             height: 50px;
             width: 50px;
             cursor: pointer;
