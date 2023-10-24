@@ -1,4 +1,5 @@
 import './style/style.scss';
+import {updateDynamicDate} from './HomeSection'; 
 
 let tasksArray = [];
 let notesArray = [];
@@ -54,10 +55,12 @@ export const changeNav = (event, navBtn) => {
 
 
 //Show specific Section depends on the button clicked in nav
-export const showSection = (navBtn, allSection) => {
+export const showSection = (navBtn, allSection, plusIcon) => {
     allSection.forEach(key => key.style.display = 'none');
+    plusIcon.style.display = 'block';
     if(navBtn[0].classList.contains('special-btn')){
         allSection[0].style.display = 'block'; //forHome Section 
+        plusIcon.style.display = 'none';
     }
     else if(navBtn[1].classList.contains('special-btn')){
         allSection[1].style.display = 'grid';//forTasks Section 
@@ -235,8 +238,14 @@ const removeTasks = (index, array, section) => {
         newSection[i].setAttribute('data-index', i);
         array[i].index = i;
     }
-    
+}
 
+export const tasksToday = () => {
+    const dateToday = updateDynamicDate()
+    // for(const todayTasks of tasksArray){
+        
+    // }
+    return dateToday;
 }
 
 
