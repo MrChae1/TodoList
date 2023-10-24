@@ -62,12 +62,16 @@
     border-radius: 0 0 5px;
     position: relative;
 }
+.tasks-div{
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.5);
+}
 .tasks-modals{
     @include ContainerTag(grid);
     border: none;
     padding: none;
     grid-template: 5fr .5fr 1fr / 1fr .5fr;
     text-align: justify;
+    
     .tasks-inputs{
         grid-area: 1/1/2/3;
         @include ContainerTag(grid);
