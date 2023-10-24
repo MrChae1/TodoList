@@ -89,14 +89,14 @@ export const verifyValue = (anyData, modalBtn, selected, modalTag, Section) => {
             getData.push(selected.value, tasksArray.length);
             const newTasks = new addNew(...getData);
             tasksArray.push(newTasks);
-            const newArray = [tasksArray[tasksArray.length-1]];
-            appendTasks(newArray, Section);
+            // const newArray = [tasksArray[tasksArray.length-1]];
+            appendTasks(tasksArray[tasksArray.length-1], Section);
         }
         else{
             getData.push('none', 'none', notesArray.length);
             const newNotes = new addNew(...getData);
             notesArray.push(newNotes);
-            appendTasks(notesArray, Section);
+            appendTasks(notesArray[notesArray.length-1], Section);
         }
         exitBtn(modalTag);
         
@@ -131,18 +131,17 @@ const invalidModal = () => {
 
 const appendTasks = (array, section) => {
     if(section.classList.contains('tasksSection')){
-        for(const arrayTasks of array){
             const mainDiv = document.createElement('div');
             mainDiv.classList.add('tasks-div');
-            mainDiv.setAttribute("data-index", arrayTasks.index);
+            mainDiv.setAttribute("data-index", array.index);
             const subDiv = document.createElement('div');
             subDiv.classList.add('tasks');
-            changePrio(arrayTasks.prio, mainDiv);
+            changePrio(array.prio, mainDiv);
             subDiv.innerHTML = `
                 <input type="checkbox" name="myCheckbox" id="myCheckbox" value="checkboxValue" >
-                <label>${arrayTasks.title}</label>
+                <label>${array.title}</label>
                 <button>Details</button>
-                <p>${arrayTasks.date}</p>
+                <p>${array.date}</p>
                 <svg class="delete" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>trash-can</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" /></svg>
             `;
 
@@ -156,30 +155,28 @@ const appendTasks = (array, section) => {
             //Details button
             allSubBtn[2].addEventListener('click', () => {
                 import('./tasksCommand').then(module => {
-                    module.ShowDetails(allSubBtn, arrayTasks, mainDiv, tasksArray);
+                    module.ShowDetails(allSubBtn, array, mainDiv, tasksArray);
                 });
             });
 
             //Delete Button
             allSubBtn[4].addEventListener('click', () =>{
-                removeTasks(arrayTasks.index,  tasksArray, section);
+                removeTasks(array.index,  tasksArray, section);
             });
 
             mainDiv.append(subDiv);
             section.append(mainDiv);
-        }
     }
     else{
-        for(const notesArray of array){
             const mainDiv = document.createElement('div');
                 mainDiv.classList.add('Notes-div');
                 mainDiv.innerHTML = `
                     <header>
-                        <h2>${notesArray.title}</h2>
+                        <h2>${array.title}</h2>
                         <h4 class="notes-del">X</h4>
                     </header>
                     <div class="notes-parag">
-                        <p>${notesArray.desc}</p>
+                        <p>${array.desc}</p>
                     </div>
                     `;
                 const notesExit = mainDiv.querySelector('h4');
@@ -190,15 +187,16 @@ const appendTasks = (array, section) => {
                     });
                 };
                 Execute(notesExit,(module) => {
-                    module.NotesDelete(mainDiv, array, notesArray.index);
+                    module.NotesDelete(mainDiv, notesArray, array.index);
+
                 });
                 
                 Execute(NotesPara, (module) =>{
-                    module.EditNotes(array, notesArray, mainDiv);
+                    module.EditNotes(notesArray, array, mainDiv);
                 });
                 
                 section.append(mainDiv);
-        }
+        
     }
 }
 
