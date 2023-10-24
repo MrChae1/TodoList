@@ -61,7 +61,39 @@ aside{
         border: none;
         section:nth-child(1){
             @include forHandW();
-            display: block;
+            div{
+                @include forHandW();
+                display: grid;
+                grid-template: 1fr 5fr / 1fr 1fr;
+                gap: .5rem;
+                header{
+                    grid-area: 1/1/2/3;
+                    font-weight: bold;
+                    @include forHandW();
+                    justify-content: center;
+                    border-radius: 10px;
+                }
+                section{
+                    
+                    article{
+                        text-align: center;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                    grid-area: 2/1/3/3;
+                    display: flex; 
+                    @include forHandW();
+                    .artOne{
+                        width: 50%;
+                        
+                    }
+                    .artTwo{
+                        width: 50%;
+                    }
+                }
+                
+            }
+            
         }
         section:nth-child(2){
             @include forHandW();
@@ -158,7 +190,7 @@ aside{
         }
         
         .asideSVG{
-            display: block;
+            display: none;
             position: fixed;
             bottom: 62px;
             right: 19px;
