@@ -1,4 +1,5 @@
 import './style/style.scss';
+import {updateDynamicDate} from './HomeSection'; 
 
 function component(){ 
     const mainContainer = document.createElement('main');
@@ -20,7 +21,7 @@ function component(){
         import('./command').then(module => {
             module.removeClass(navBtn);
             module.changeNav(event, navBtn);
-            module.showSection(navBtn, allSection);
+            module.showSection(navBtn, allSection, plusIcon);
         })
         .catch(error => {
             console.error('Error while importing module: ', error);
@@ -31,6 +32,23 @@ function component(){
     asideTag.innerHTML = `
         <main> 
             <section> 
+                <div>
+                    <header>
+                        ${updateDynamicDate()}
+                    </header>
+                    <section>
+                        <article class="artOne">    
+                            <h3>Tasks Today</h3>
+                            <div>
+                                
+                            </div> 
+                        </article>
+                        <article class="artTwo">
+                            <h3>Pin Notes</h3> 
+                        </article>
+                    </section>  
+                </div>
+                
             </section>
             <section class="tasksSection">
             </section>
