@@ -231,12 +231,14 @@ const boxChange = (e, label,tasksDiv, subDiv) => {
 const removeTasks = (index, array, section) => {
     array.splice(index, 1);
     const elementsToRemove = document.querySelector(`[data-index="${index}"]`);
-    const newSection = Array.from(section.querySelectorAll('.tasks-div'));
     exitBtn(elementsToRemove);
+    const newSection = Array.from(section.querySelectorAll('.tasks-div'));
     for(let i = 0; i < array.length; i++){
         newSection[i].setAttribute('data-index', i);
-        array[i][2] = i;
+        array[i].index = i;
     }
+    
+
 }
 
 
