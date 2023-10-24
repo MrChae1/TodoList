@@ -3,7 +3,11 @@ export const NotesDelete = (main, NotesArray, notesIndex) => {
         module.exitBtn(main)
     });
     NotesArray.splice(notesIndex, 1);
+    for(let i = 0; i < NotesArray.length; i++){
+        NotesArray[i].index = i;
+    }
     console.log(NotesArray);
+
 }
 
 export const EditNotes = (NotesArray, NotesObj, NotesD) => {
