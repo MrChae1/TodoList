@@ -1,5 +1,5 @@
 import './style/style.scss';
-import {updateDynamicDate} from './HomeSection'; 
+import {updateDynamicDate, tasksToday} from './HomeSection'; 
 
 function component(){ 
     const mainContainer = document.createElement('main');
@@ -36,19 +36,15 @@ function component(){
                     <header>
                         ${updateDynamicDate()}
                     </header>
-                    <section>
-                        <article class="artOne">    
-                            <h3>Tasks Today</h3>
-                            <div>
-                                
-                            </div> 
-                        </article>
-                        <article class="artTwo">
-                            <h3>Pin Notes</h3> 
-                        </article>
-                    </section>  
-                </div>
-                
+                    <div class="main-art">
+                        <div class="artOne">
+                            <h5>Tasks Today</h5>
+                        </div>
+                        <div class="artTwo">
+                            <h5>Pin Notes</h5>
+                        </div>
+                    </div>
+                </div> 
             </section>
             <section class="tasksSection">
             </section>
