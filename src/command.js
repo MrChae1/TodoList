@@ -240,13 +240,7 @@ const removeTasks = (index, array, section) => {
     }
 }
 
-export const tasksToday = () => {
-    const dateToday = updateDynamicDate()
-    // for(const todayTasks of tasksArray){
-        
-    // }
-    return dateToday;
-}
+
 
 
 
