@@ -17,5 +17,7 @@ function getDynamicDate() {
   
   // Update the dynamic date every 24 hours (in milliseconds)
   setInterval(updateDynamicDate, 24 * 60 * 60 * 1000);
+
   
+
   
