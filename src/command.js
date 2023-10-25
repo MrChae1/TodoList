@@ -242,10 +242,14 @@ const removeTasks = (index, array, section) => {
 
 export const tasksToday = () => {
     const dateToday = updateDynamicDate()
-    // for(const todayTasks of tasksArray){
-        
-    // }
-    return dateToday;
+    const hThree = document.createElement('div');
+    for(const todayTasks of tasksArray){
+        if(todayTasks.date === dateToday);
+        const nice = document.createElement('h3');
+        nice.textContent = todayTasks.title;
+        hThree.append(nice);
+    }
+    return hThree;
 }
 
 
