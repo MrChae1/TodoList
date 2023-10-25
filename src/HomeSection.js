@@ -17,5 +17,13 @@ function getDynamicDate() {
   
   // Update the dynamic date every 24 hours (in milliseconds)
   setInterval(updateDynamicDate, 24 * 60 * 60 * 1000);
+
   
+  export const tasksToday = () => {
+    const dateToday = updateDynamicDate()
+    // for(const todayTasks of tasksArray){
+        
+    // }
+    return dateToday;
+}
   
