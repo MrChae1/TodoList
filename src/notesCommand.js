@@ -37,7 +37,3 @@ export const EditNotes = (NotesArray, NotesObj, NotesD) => {
     });
     document.body.appendChild(editDiv);
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> todothis
