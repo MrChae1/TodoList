@@ -47,10 +47,11 @@ export const changeNav = (event, navBtn) => {
         const buttonIndex = classToButton[clickedClass];
         // Add the 'special-btn' class to the corresponding button
         navBtn[buttonIndex].classList.add('special-btn');
-    } else {
-        // Handle the default case, e.g., adding 'special-btn' to HomeButton
-        navBtn[0].classList.add('special-btn');
-    }
+    } 
+    // else {
+    //     // Handle the default case, e.g., adding 'special-btn' to HomeButton
+    //     navBtn[0].classList.add('special-btn');
+    // }
 }
 
 
