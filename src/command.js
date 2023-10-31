@@ -93,7 +93,9 @@ export const verifyValue = (anyData, modalBtn, selected, modalTag, Section) => {
             getData.push(selected.value, tasksArray.length);
             const newTasks = new addNew(...getData);
             tasksArray.push(newTasks);
-            // const newArray = [tasksArray[tasksArray.length-1]];
+            let taskString = JSON.stringify(tasksArray);
+            localStorage.setItem("tasks", taskString);
+            console.log(localStorage);
             appendTasks(tasksArray[tasksArray.length-1], Section);
         }
         else{
