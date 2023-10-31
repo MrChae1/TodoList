@@ -1,6 +1,4 @@
 import './style/style.scss';
-import {updateDynamicDate} from './HomeSection';
-import { tasksToday } from './command'; 
 
 function component(){ 
     const mainContainer = document.createElement('main');

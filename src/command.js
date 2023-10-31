@@ -1,16 +1,17 @@
 import './style/style.scss';
-import {updateDynamicDate} from './HomeSection'; 
+
 
 let tasksArray = [];
 let notesArray = [];
 
 
-function addNew(title, desc, date, prio, index){
+function addNew(title, desc, date, prio, index, checked){
     this.title = title,
     this.desc = desc,
     this.index = index
     this.date = date,
-    this.prio = prio  
+    this.prio = prio,  
+    this.checked = checked
 }
 
 //removeClass
@@ -47,11 +48,10 @@ export const changeNav = (event, navBtn) => {
         const buttonIndex = classToButton[clickedClass];
         // Add the 'special-btn' class to the corresponding button
         navBtn[buttonIndex].classList.add('special-btn');
-    } 
-    // else {
-    //     // Handle the default case, e.g., adding 'special-btn' to HomeButton
-    //     navBtn[0].classList.add('special-btn');
-    // }
+    } else {
+        // Handle the default case, e.g., adding 'special-btn' to HomeButton
+        navBtn[0].classList.add('special-btn');
+    }
 }
 
 
@@ -89,21 +89,23 @@ export const verifyValue = (anyData, modalBtn, selected, modalTag, Section) => {
     const getData = anyData.map(key => key.value);
     const allHaveValue = getData.every(value => value !== '' && value !== null);
     if(allHaveValue){
-        if(modalBtn[0].classList.contains('special-btn')){
-            getData.push(selected.value, tasksArray.length);
-            const newTasks = new addNew(...getData);
-            tasksArray.push(newTasks);
-            let taskString = JSON.stringify(tasksArray);
-            localStorage.setItem("tasks", taskString);
-            console.log(localStorage);
-            appendTasks(tasksArray[tasksArray.length-1], Section);
-        }
-        else{
-            getData.push('none', 'none', notesArray.length);
-            const newNotes = new addNew(...getData);
-            notesArray.push(newNotes);
-            appendTasks(notesArray[notesArray.length-1], Section);
-        }
+        import('./appendCommand').then(module => {
+            if(modalBtn[0].classList.contains('special-btn')){
+                getData.push(selected.value, tasksArray.length);
+                const newTasks = new addNew(...getData);
+                tasksArray.push(newTasks);
+                module.updateLocal(tasksArray, 1);
+                appendTasks(tasksArray[tasksArray.length-1], Section);
+            }
+            else{
+                getData.push('none', 'none', notesArray.length);
+                const newNotes = new addNew(...getData);
+                notesArray.push(newNotes);
+                module.updateLocal(notesArray, 2)
+                appendTasks(notesArray[notesArray.length-1], Section);
+            }
+        })
+
         exitBtn(modalTag);
         
     }
@@ -222,7 +224,6 @@ const boxChange = (e, label,tasksDiv, subDiv) => {
     if(e.target.checked){
         label.style.cssText = 'text-decoration-line: line-through; text-decoration-thickness: 3px; text-decoration-style: solid'; //This is label
         tasksDiv.style.boxShadow = 'none';
-
         subDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
     }
     else{
@@ -241,18 +242,6 @@ const removeTasks = (index, array, section) => {
         newSection[i].setAttribute('data-index', i);
         array[i].index = i;
     }
-}
-
-export const tasksToday = () => {
-    const dateToday = updateDynamicDate()
-    const hThree = document.createElement('div');
-    for(const todayTasks of tasksArray){
-        if(todayTasks.date === dateToday);
-        const nice = document.createElement('h3');
-        nice.textContent = todayTasks.title;
-        hThree.append(nice);
-    }
-    return hThree;
 }
 
 
