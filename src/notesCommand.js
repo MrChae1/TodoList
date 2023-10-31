@@ -1,3 +1,5 @@
+import { updateLocal } from './appendCommand';
+
 export const NotesDelete = (main, NotesArray, notesIndex) => {
     import('./command').then(module => {
         module.exitBtn(main)
@@ -6,8 +8,7 @@ export const NotesDelete = (main, NotesArray, notesIndex) => {
     for(let i = 0; i < NotesArray.length; i++){
         NotesArray[i].index = i;
     }
-    
-
+    updateLocal(NotesArray, 2);
 }
 
 export const EditNotes = (NotesArray, NotesObj, NotesD) => {
@@ -26,6 +27,8 @@ export const EditNotes = (NotesArray, NotesObj, NotesD) => {
     const editExit = editDiv.querySelector('h4');
     textA.value = NotesObj.desc;
     editExit.addEventListener('click', () => {
+        const parseItems = JSON.parse(localStorage.getItem('notes'));
+        NotesArray = parseItems;
         NotesArray[NotesObj.index].title = inputEdit.value;
         NotesArray[NotesObj.index].desc = textA.value;
         allNotesContent[1].textContent = inputEdit.value;
@@ -34,6 +37,7 @@ export const EditNotes = (NotesArray, NotesObj, NotesD) => {
         import('./command').then(module => {
             module.exitBtn(editDiv);
         });
+        updateLocal(NotesArray, 2);
     });
     document.body.appendChild(editDiv);
 }
