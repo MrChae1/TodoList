@@ -1,4 +1,6 @@
 import './style/style.scss';
+import { tasksLocalStorage } from './appendCommand';
+
 
 function component(){ 
     const mainContainer = document.createElement('main');
@@ -51,6 +53,14 @@ function component(){
     footerTag.innerHTML = `
         <p>&copy; 2023 TodoThis. All rights reserved.</p>
     `;
+
+    if(localStorage){
+        import('./appendCommand').then(module =>{
+            module.tasksLocalStorage(allSection[1]);
+            module.notesLocalStorage(allSection[2]);
+        });
+    }
+
     mainContainer.append(headerTag, navTag, asideTag, footerTag);
     
     return mainContainer;

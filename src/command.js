@@ -1,9 +1,10 @@
+import { localNull, notNull } from './appendCommand';
 import './style/style.scss';
-
 
 let tasksArray = [];
 let notesArray = [];
-
+const nullLocal = localNull();
+const notesNull = notNull();
 
 function addNew(title, desc, date, prio, index, checked){
     this.title = title,
@@ -91,21 +92,27 @@ export const verifyValue = (anyData, modalBtn, selected, modalTag, Section) => {
     if(allHaveValue){
         import('./appendCommand').then(module => {
             if(modalBtn[0].classList.contains('special-btn')){
-                getData.push(selected.value, tasksArray.length);
+                if(nullLocal !== 0){
+                    tasksArray = nullLocal;
+                }
+                getData.push(selected.value, tasksArray.length, false);
                 const newTasks = new addNew(...getData);
                 tasksArray.push(newTasks);
                 module.updateLocal(tasksArray, 1);
                 appendTasks(tasksArray[tasksArray.length-1], Section);
             }
             else{
-                getData.push('none', 'none', notesArray.length);
+                if(notesNull !== 0){
+                     notesArray = notesNull;
+                }
+                getData.push('none', 'none', notesArray.length, 'none');
                 const newNotes = new addNew(...getData);
                 notesArray.push(newNotes);
                 module.updateLocal(notesArray, 2)
                 appendTasks(notesArray[notesArray.length-1], Section);
             }
-        })
-
+        });
+        
         exitBtn(modalTag);
         
     }
@@ -136,8 +143,7 @@ const invalidModal = () => {
     errorContainer.appendChild(ErrorTag);
     document.body.appendChild(errorContainer);
 }
-
-const appendTasks = (array, section) => {
+export const appendTasks = (array, section) => {
     if(section.classList.contains('tasksSection')){
             const mainDiv = document.createElement('div');
             mainDiv.classList.add('tasks-div');
@@ -156,8 +162,17 @@ const appendTasks = (array, section) => {
             
             const allSubBtn = Array.from(subDiv.querySelectorAll('*'));
             //Checkbox button
+            boxChange(allSubBtn[0],allSubBtn[1], mainDiv, subDiv, array.checked, array.index);
             allSubBtn[0].addEventListener('change', function(e){
-                boxChange(e, allSubBtn[1], mainDiv, subDiv);
+                if(e.target.checked){
+                    array.checked = true;
+                    boxChange(allSubBtn[0], allSubBtn[1], mainDiv, subDiv, array.checked, array.index);
+                }
+                else{
+                    array.checked = false;
+                    boxChange(allSubBtn[0], allSubBtn[1], mainDiv, subDiv, array.checked, array.index);
+                }
+                
             });
 
             //Details button
@@ -204,7 +219,6 @@ const appendTasks = (array, section) => {
                 });
                 
                 section.append(mainDiv);
-        
     }
 }
 
@@ -220,17 +234,28 @@ export const changePrio = (prioColor, Main) => {
     }
 }
 
-const boxChange = (e, label,tasksDiv, subDiv) => {
-    if(e.target.checked){
-        label.style.cssText = 'text-decoration-line: line-through; text-decoration-thickness: 3px; text-decoration-style: solid'; //This is label
-        tasksDiv.style.boxShadow = 'none';
-        subDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-    }
-    else{
-        label.style.textDecoration = 'none'; //This is label
-        tasksDiv.style.boxShadow = '2px 2px 5px 2px rgba(0, 0, 0, 0.5)';
-        subDiv.style.backgroundColor = '#fff';
-    } 
+export const boxChange = (checkBox, label,tasksDiv, subDiv, updateCheck, currentIndex,) => {
+    const getTasks = localStorage.getItem('tasks');
+    const parseItem = JSON.parse(getTasks);
+        if(updateCheck === true){
+            label.style.cssText = 'text-decoration-line: line-through; text-decoration-thickness: 3px; text-decoration-style: solid'; //This is label
+            tasksDiv.style.boxShadow = 'none';
+            subDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            parseItem[currentIndex].checked = true;
+            checkBox.checked = true;
+        }
+        else{
+            label.style.textDecoration = 'none'; //This is label
+            tasksDiv.style.boxShadow = '2px 2px 5px 2px rgba(0, 0, 0, 0.5)';
+            subDiv.style.backgroundColor = '#fff'; 
+            parseItem[currentIndex].checked = false;
+            checkBox.checked = false;
+        }
+    tasksArray = parseItem; 
+    import('./appendCommand').then(module => {
+        module.updateLocal(tasksArray, 1);
+    });
+    
 }
 
 const removeTasks = (index, array, section) => {
@@ -242,6 +267,9 @@ const removeTasks = (index, array, section) => {
         newSection[i].setAttribute('data-index', i);
         array[i].index = i;
     }
+    import('./appendCommand').then(module => {
+        module.updateLocal(array, 1);
+    });
 }
 
 

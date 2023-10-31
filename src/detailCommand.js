@@ -23,6 +23,8 @@ export const ChangeDetails = (allDetails, editDell) => {
 
 export const ChangeTheTasks = (alltasks, array, mainDiv, allDetails, mainArray, detail) => {
     const Selected = allDetails[17].querySelector('.special-btn');
+    const parseItems = JSON.parse(localStorage.getItem('tasks'));
+    mainArray = parseItems;
     mainArray[array.index].title = allDetails[4].value;
     mainArray[array.index].desc = allDetails[9].value;
     mainArray[array.index].date = allDetails[13].value;
@@ -30,6 +32,10 @@ export const ChangeTheTasks = (alltasks, array, mainDiv, allDetails, mainArray, 
     
     alltasks[1].textContent = `${mainArray[array.index].title}`;
     alltasks[3].textContent = `${mainArray[array.index].date}`;
+
+    import('./appendCommand').then(module => {
+        module.updateLocal(mainArray, 1);
+    });
    
     import('./command')
         .then((module) => {
