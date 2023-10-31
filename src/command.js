@@ -1,16 +1,17 @@
 import './style/style.scss';
-import {updateDynamicDate} from './HomeSection'; 
+
 
 let tasksArray = [];
 let notesArray = [];
 
 
-function addNew(title, desc, date, prio, index){
+function addNew(title, desc, date, prio, index, checked){
     this.title = title,
     this.desc = desc,
     this.index = index
     this.date = date,
-    this.prio = prio  
+    this.prio = prio,  
+    this.checked = checked
 }
 
 //removeClass
@@ -92,13 +93,16 @@ export const verifyValue = (anyData, modalBtn, selected, modalTag, Section) => {
             getData.push(selected.value, tasksArray.length);
             const newTasks = new addNew(...getData);
             tasksArray.push(newTasks);
-            // const newArray = [tasksArray[tasksArray.length-1]];
+            const tasksStored = JSON.stringify(tasksArray);
+            localStorage.setItem('tasks', tasksStored);
             appendTasks(tasksArray[tasksArray.length-1], Section);
         }
         else{
             getData.push('none', 'none', notesArray.length);
             const newNotes = new addNew(...getData);
             notesArray.push(newNotes);
+            const notesStored = JSON.stringify(notesArray);
+            localStorage.setItem('notes', notesStored);
             appendTasks(notesArray[notesArray.length-1], Section);
         }
         exitBtn(modalTag);
@@ -238,18 +242,6 @@ const removeTasks = (index, array, section) => {
         newSection[i].setAttribute('data-index', i);
         array[i].index = i;
     }
-}
-
-export const tasksToday = () => {
-    const dateToday = updateDynamicDate()
-    const hThree = document.createElement('div');
-    for(const todayTasks of tasksArray){
-        if(todayTasks.date === dateToday);
-        const nice = document.createElement('h3');
-        nice.textContent = todayTasks.title;
-        hThree.append(nice);
-    }
-    return hThree;
 }
 
 
