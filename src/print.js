@@ -1,5 +1,5 @@
 import './style/style.scss';
-
+import { localNull } from './appendCommand';
 export function forModals(mainCon){
     const modalTag = document.createElement('div');
     modalTag.classList.add('section-modals');
