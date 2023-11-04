@@ -1,5 +1,6 @@
 import './style/style.scss';
 import { tasksLocalStorage } from './appendCommand';
+import { updateDynamicDate } from './HomeSection';
 
 
 function component(){ 
@@ -32,7 +33,8 @@ function component(){
     const asideTag = document.createElement('aside');
     asideTag.innerHTML = `
         <main> 
-            <section> 
+            <section>
+                <header>${updateDynamicDate()}</header> 
             </section>
             <section class="tasksSection">
             </section>
