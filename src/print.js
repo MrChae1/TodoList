@@ -1,5 +1,5 @@
 import './style/style.scss';
-import { localNull } from './appendCommand';
+// import { localNull } from './appendCommand';
 export function forModals(mainCon){
     const modalTag = document.createElement('div');
     modalTag.classList.add('section-modals');
@@ -44,57 +44,62 @@ export function forModals(mainCon){
             </div>
         </div>
         `;
-        const aside = mainCon.querySelector('aside');
-        const allSection = Array.from(aside.querySelectorAll('section'));
-        const modalHeader = modalTag.querySelector('header');
-        const modalNav = modalTag.querySelector('nav');
-        const MNavbtn = Array.from(modalNav.querySelectorAll('button'));
-        const mainSubmodals = Array.from(modalTag.querySelectorAll('.main-sub'));
-        const exitBtn = modalHeader.querySelector('h4');
-        const addBtn = modalTag.querySelector('.modals-add');
-        const tasksModals = modalTag.querySelector('.tasks-modals');
-        const allTasksData = Array.from(tasksModals.querySelectorAll('*'));
-        const tasksInputs = [allTasksData[1], allTasksData[2], allTasksData[5]];
-        const notesModals = modalTag.querySelector('.notes-modals');
-        const allNotesData = Array.from(notesModals.querySelectorAll('*'));
-        const notesInputs = [allNotesData[1], allNotesData[2]];
-        const prioBtn = Array.from(allTasksData[8].querySelectorAll('button'));
-        // Import the 'command' module once at the beginning of your script
-        import('./command')
-        .then((module) => {
-        modalNav.addEventListener('click', (event) => {
-            module.removeClass(MNavbtn);
-            module.changeNav(event, MNavbtn);
-            module.ShowDiv(MNavbtn, mainSubmodals);
-        });
 
-        exitBtn.addEventListener('click', () => {
-            module.exitBtn(modalTag);
-        });
+        
 
-        allTasksData[8].addEventListener('click', function(event){
-            module.removeClass(prioBtn);
-            module.changeNav(event, prioBtn);
-        });
-
-        addBtn.addEventListener('click', () =>{
-            if(MNavbtn[0].classList.contains('special-btn')){
-                const selectedPrio = allTasksData[8].querySelector('.special-btn');
-                module.verifyValue(tasksInputs, MNavbtn, selectedPrio, modalTag, allSection[1]);
-
-            }
-            else if(MNavbtn[1].classList.contains('special-btn')){
-                module.verifyValue(notesInputs, MNavbtn, null, modalTag, allSection[2]);
-                
-            }
-        });
-
-        })
-        .catch((error) => {
-        console.error('Error while importing module: ', error);
-        });
 
     
 
     mainCon.appendChild(modalTag);
 }
+
+
+        // const aside = mainCon.querySelector('aside');
+        // const allSection = Array.from(aside.querySelectorAll('section'));
+        // const modalHeader = modalTag.querySelector('header');
+        // const modalNav = modalTag.querySelector('nav');
+        // const MNavbtn = Array.from(modalNav.querySelectorAll('button'));
+        // const mainSubmodals = Array.from(modalTag.querySelectorAll('.main-sub'));
+        // const exitBtn = modalHeader.querySelector('h4');
+        // const addBtn = modalTag.querySelector('.modals-add');
+        // const tasksModals = modalTag.querySelector('.tasks-modals');
+        // const allTasksData = Array.from(tasksModals.querySelectorAll('*'));
+        // const tasksInputs = [allTasksData[1], allTasksData[2], allTasksData[5]];
+        // const notesModals = modalTag.querySelector('.notes-modals');
+        // const allNotesData = Array.from(notesModals.querySelectorAll('*'));
+        // const notesInputs = [allNotesData[1], allNotesData[2]];
+        // const prioBtn = Array.from(allTasksData[8].querySelectorAll('button'));
+        // // Import the 'command' module once at the beginning of your script
+        // import('./command')
+        // .then((module) => {
+        // modalNav.addEventListener('click', (event) => {
+        //     module.removeClass(MNavbtn);
+        //     module.changeNav(event, MNavbtn);
+        //     module.ShowDiv(MNavbtn, mainSubmodals);
+        // });
+
+        // exitBtn.addEventListener('click', () => {
+        //     module.exitBtn(modalTag);
+        // });
+
+        // allTasksData[8].addEventListener('click', function(event){
+        //     module.removeClass(prioBtn);
+        //     module.changeNav(event, prioBtn);
+        // });
+
+        // addBtn.addEventListener('click', () =>{
+        //     if(MNavbtn[0].classList.contains('special-btn')){
+        //         const selectedPrio = allTasksData[8].querySelector('.special-btn');
+        //         module.verifyValue(tasksInputs, MNavbtn, selectedPrio, modalTag, allSection[1]);
+
+        //     }
+        //     else if(MNavbtn[1].classList.contains('special-btn')){
+        //         module.verifyValue(notesInputs, MNavbtn, null, modalTag, allSection[2]);
+                
+        //     }
+        // });
+
+        // })
+        // .catch((error) => {
+        // console.error('Error while importing module: ', error);
+        // });
