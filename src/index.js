@@ -1,6 +1,6 @@
 import './style/style.scss';
-import { tasksLocalStorage } from './appendCommand';
-import { updateDynamicDate } from './HomeSection';
+// import { tasksLocalStorage } from './appendCommand';
+// import { updateDynamicDate } from './HomeSection';
 
 
 function component(){ 
@@ -20,7 +20,7 @@ function component(){
     `;
     const navBtn = Array.from(navTag.querySelectorAll('button'));
     navTag.addEventListener('click', function(event){
-        import('./command').then(module => {
+        import('./newCommand').then(module => {
             module.removeClass(navBtn);
             module.changeNav(event, navBtn);
             module.showSection(navBtn, allSection, plusIcon);
@@ -34,7 +34,6 @@ function component(){
     asideTag.innerHTML = `
         <main> 
             <section>
-                <header>${updateDynamicDate()}</header> 
             </section>
             <section class="tasksSection">
             </section>
@@ -56,12 +55,12 @@ function component(){
         <p>&copy; 2023 TodoThis. All rights reserved.</p>
     `;
 
-    if(localStorage){
-        import('./appendCommand').then(module =>{
-            module.tasksLocalStorage(allSection[1]);
-            module.notesLocalStorage(allSection[2]);
-        });
-    }
+    // if(localStorage){
+    //     import('./appendCommand').then(module =>{
+    //         module.tasksLocalStorage(allSection[1]);
+    //         module.notesLocalStorage(allSection[2]);
+    //     });
+    // }
 
     mainContainer.append(headerTag, navTag, asideTag, footerTag);
     
